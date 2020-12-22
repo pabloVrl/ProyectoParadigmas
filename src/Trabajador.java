@@ -1,6 +1,6 @@
 
 public class Trabajador {
-	private Rut RUT;
+	private Rut Rut;
 	private String nombre, apellidoP, apellidoM;
 	private FechaNacimiento fechaNac;
 	private String tipoContrato;
@@ -8,8 +8,8 @@ public class Trabajador {
 
 	public static String[] contratos = {"Part-time", "Full-time"};
 
-	public Trabajador(Rut RUT, String nombre, String apellidoP, String apellidoM, FechaNacimiento fechaNac, String tipoContrato, float salario) {
-		this.RUT = RUT;
+	public Trabajador(Rut Rut, String nombre, String apellidoP, String apellidoM, FechaNacimiento fechaNac, String tipoContrato, float salario) {
+		this.Rut = Rut;
 		this.nombre = nombre;
 		this.apellidoP = apellidoP;
 		this.apellidoM = apellidoM;
@@ -19,11 +19,11 @@ public class Trabajador {
 	}
 
 	public Rut getRUT() {
-		return RUT;
+		return Rut;
 	}
 
-	public void setRUT(Rut rUT) {
-		RUT = rUT;
+	public void setRUT(Rut Rut) {
+		this.Rut = Rut;
 	}
 
 	public String getNombre() {
