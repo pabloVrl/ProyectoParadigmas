@@ -1,29 +1,21 @@
+import java.util.ArrayList;
 
-public class departamento {
+public class Departamento {
 
 	private int numeroDepa;
 	private String nombreDepa;
 	private int numeroTrabajadores;
-	public Trabajador infoTrabajador;
+	private ArrayList<Trabajador> trabajadores;
 	
-	 public departamento(int numeroDepa,String nombreDepa,int numeroTrabajadores,Trabajador infoTrabajador){
+	 public Departamento(int numeroDepa,String nombreDepa,int numeroTrabajadores,Trabajador infoTrabajador){
 		  
 		  this.numeroDepa=numeroDepa;
 		  this.nombreDepa = nombreDepa;
-		  this.numeroTrabajadores = numeroTrabajadores;
-		  this.infoTrabajador = infoTrabajador;
-		  
 	  }
-	
-	 public ingresarDepa(int numeroDepa,String nombreDepa,int numeroTrabajadores,Trabajador infoTrabajador){
-		  
-		  this.numeroDepa=numeroDepa;
-		  this.nombreDepa=nombreDepa;
-		  this.numeroTrabajadores=numeroTrabajadores;
-		  this.infoTrabajador=infoTrabajador;
-		  
-		  
-	  }
+	 
+	 public void ingresarTrabajador(Trabajador t) {
+		 trabajadores.add(t);
+	 }
 	 
 	 public int getNumeroTrabajadores() {
 		return numeroTrabajadores;
