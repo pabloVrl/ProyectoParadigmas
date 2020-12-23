@@ -13,21 +13,18 @@ public class TrabajadoresUI extends JPanel{
 	JButton consultar;
 	JButton generarLiquidacion;
 	
-	
-	
-	
 	private final Color fondo = new Color(0xe9e9e5);
 	
 	public TrabajadoresUI() {
+		this.setBounds(170, 0, 615, 500);
+		this.setBackground(fondo);
+		this.setLayout(null);
 		home();
 		
 		
 	}
 	public void home() {
 		this.removeAll();
-		this.setBounds(170, 0, 615, 500);
-		this.setBackground(fondo);
-		this.setLayout(null);
 		
 		bienvenida = new JLabel("PANEL DE TRABAJADORES");
 		bienvenida.setBounds(115, 45, 500, 50);
@@ -66,7 +63,6 @@ public class TrabajadoresUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
 				ingresar();
 			}
 			
@@ -128,28 +124,49 @@ public class TrabajadoresUI extends JPanel{
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
 		JLabel textNombre = new JLabel("Nombre:");
-		textNombre.setBounds(90, 180, 100, 25);
+		textNombre.setBounds(90, 120, 100, 25);
 		textNombre.setFont(new Font("",Font.BOLD,16));
 		
 		JTextField fieldNombre = new JTextField();
-		fieldNombre.setBounds(240, 180, 250, 25);
+		fieldNombre.setBounds(240, 120, 250, 25);
 		
 		JLabel textApellidoP = new JLabel("Apellido Paterno:");
-		textApellidoP.setBounds(60, 240, 200, 25);
+		textApellidoP.setBounds(60, 150, 200, 25);
 		textApellidoP.setFont(new Font("",Font.BOLD,16));
 		
 		JTextField fieldApellidoP = new JTextField();
-		fieldApellidoP.setBounds(240, 240, 250, 25);
+		fieldApellidoP.setBounds(240, 150, 250, 25);
 		
 		JLabel textApellidoM = new JLabel("Apellido Materno:");
-		textApellidoM.setBounds(60, 300, 200, 25);
+		textApellidoM.setBounds(60, 180, 200, 25);
 		textApellidoM.setFont(new Font("",Font.BOLD,16));
 		
 		JTextField fieldApellidoM = new JTextField();
-		fieldApellidoM.setBounds(240, 300, 250, 25);
+		fieldApellidoM.setBounds(240, 180, 250, 25);
+		
+		JLabel textRut = new JLabel("RUT:");
+		textRut.setBounds(110, 210, 200, 25);
+		textRut.setFont(new Font("",Font.BOLD,16));
+		
+		JTextField fieldRut = new JTextField();
+		fieldRut.setBounds(240, 210, 210, 25);
+		
+		JLabel textGuion = new JLabel("-");
+		textGuion.setBounds(455, 205, 200, 25);
+		textGuion.setFont(new Font("",Font.BOLD,28));
+		
+		JTextField fieldRutVerif = new JTextField();
+		fieldRutVerif.setBounds(470, 210, 20, 25);
+		
+		JLabel textContrato = new JLabel("Tipo Contrato:");
+		textContrato.setBounds(60, 270, 200, 25);
+		textContrato.setFont(new Font("",Font.BOLD,16));
 		
 		JButton agregar = new JButton("AGREGAR");
-		agregar.setBounds(250, 380, 100, 40);
+		agregar.setBounds(250, 270, 100, 40);
+		
+		JComboBox tipoContrato = new JComboBox(Trabajador.contratos);
+		tipoContrato.setBounds(240, 270, 200, 25);
 		
 		botonOpDepa(agregar);
 		
@@ -161,6 +178,10 @@ public class TrabajadoresUI extends JPanel{
 		add(fieldApellidoP);
 		add(agregar);
 		add(fieldNombre);
+		add(textContrato);
+		add(tipoContrato);
+		add(textRut); add(fieldRut); add(fieldRutVerif); add(textGuion);
+		revalidate();
 		repaint();
 	}
 	
