@@ -11,8 +11,8 @@ public class Bienvenida extends JPanel {
 		this.setBackground(fondo);
 		this.setLayout(null);
 		
-		bienv = new JLabel("Bienvenid@ al Sistema");
-		bienv.setBounds(100, 25, 500, 50);
+		bienv = new JLabel("BIENVENID@ AL SISTEMA");
+		bienv.setBounds(115, 45, 500, 50);
 		bienv.setFont(new Font("", Font.BOLD, 29));
 		
 		add(bienv);
