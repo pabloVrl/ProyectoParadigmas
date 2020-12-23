@@ -36,6 +36,7 @@ public class Nav extends JPanel{
 			add(botones[i]);
 		}
 		
+		
 	}
 	
 	
