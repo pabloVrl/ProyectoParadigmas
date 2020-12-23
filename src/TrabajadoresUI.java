@@ -13,13 +13,10 @@ public class TrabajadoresUI extends JPanel{
 		this.setBackground(fondo);
 		this.setLayout(null);
 		
-		Nav nav = new Nav();
-		
 		bienvenida = new JLabel("PANEL DE TRABAJADORES");
 		bienvenida.setBounds(320, 25, 500, 50);
 		bienvenida.setFont(new Font("", Font.BOLD,29));
 		
-		add(nav);
 		add(bienvenida);
 	}
 }

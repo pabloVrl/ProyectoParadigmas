@@ -16,15 +16,12 @@ public class Main {
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Home h = new Home();
-		//TrabajadoresUI t = new TrabajadoresUI();
-		DepartamentoUI d = new DepartamentoUI();
-		v.add(d);
-		//v.add(t);
-		
-		
+//		//TrabajadoresUI t = new TrabajadoresUI();
+//		DepartamentoUI d = new DepartamentoUI();
+//		v.add(d);
+//		//v.add(t);
+		v.add(h.getprincipalPanel());
 		
 		v.setVisible(true);
-		
-		
 	}
 }
