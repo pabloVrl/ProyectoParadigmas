@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 public class DepartamentoUI extends JPanel{
 
 	JLabel bienvenido;
-	JPanel ingresarUI;
 	JButton eliminar;
 	JButton ingresar;
 	JButton cantTrabajadores;
@@ -20,6 +20,13 @@ public class DepartamentoUI extends JPanel{
 	private final Color fondo = new Color(0xe9e9e5);
 	
 	public DepartamentoUI() {
+		home();
+		
+		
+	}
+	
+	public void home() {
+		this.removeAll();
 		this.setBounds(170, 0, 615, 500);
 		this.setBackground(fondo);
 		this.setLayout(null);
@@ -47,18 +54,7 @@ public class DepartamentoUI extends JPanel{
 			botones[i].setFont(new Font("",Font.BOLD,20));
 			botones[i].setForeground(Color.white);
 			add(botones[i]);
-			
 		}
-		
-		// Panel ingresarUI
-		ingresarUI = new JPanel();
-		ingresarUI.setBounds(170, 0, 615, 500);
-		ingresarUI.setBackground(fondo);
-		ingresarUI.setLayout(null);
-		
-		ingresarUI.add(bienvenido);
-		
-		
 		
 		add(bienvenido);
 		add(ingresar);
@@ -70,12 +66,31 @@ public class DepartamentoUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("funciona");
-				
+				// TODO Auto-generated method stub
+				System.out.println("FUNKA");
+				ingresar();
 			}
 			
 		});
 		
+	}
+	
+	private void ingresar() {
+		removeAll();
+		JLabel textTitulo = new JLabel("INGRESAR DEPARTAMENTO");
+		textTitulo.setBounds(100, 25, 500, 50);
+		textTitulo.setFont(new Font("",Font.BOLD,29));
+		
+		JLabel textNombre = new JLabel("Nombre");
+		textNombre.setBounds(100, 150, 50, 25);
+		
+		JTextField fieldNombre = new JTextField();
+		fieldNombre.setBounds(150, 150, 250, 25);
+		
+		add(textNombre);
+		add(textTitulo);
+		add(fieldNombre);
+		repaint();
 	}
 	
 	

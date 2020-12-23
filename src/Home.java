@@ -51,6 +51,8 @@ public class Home {
 		principal.add(nav);
 		principal.add(bienvenida);
 		
+		//Accion de botones
+		
 		home.addActionListener(new ActionListener() {
 
 			@Override
@@ -92,6 +94,7 @@ public class Home {
 	
 	private void mostrarDepto() {
 		this.removerPanelActual();
+		depto.home();
 		principal.add(depto);
 		principal.repaint();
 		this.addPanelActual(depto);
