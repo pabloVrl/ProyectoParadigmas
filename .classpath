@@ -6,5 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/pablo/Desktop/Proyectos/ProyectoParadigmas/lib/json-20201115.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

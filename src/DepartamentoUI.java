@@ -137,6 +137,20 @@ public class DepartamentoUI extends JPanel{
 		
 		botonOpDepa(agregar);
 		
+		agregar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("FUNCIONA");
+				String nombre = fieldNombre.getText();
+				int numero = Integer.parseInt(fieldNumero.getText());
+				Departamento depa = new Departamento(numero, nombre, 0);
+				depa.addJson();
+			}
+			
+		});
+		
 		add(fieldNumero);
 		add(textNumero);
 		add(textNombre);

@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javax.swing.*;
 // PROYECTO CREADO POR:
 // PABLO VILLARROEL ANTILLANCA 20.487.087-K
@@ -6,7 +8,7 @@ import javax.swing.*;
 // INGENIERIA DE EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA
 public class Main { 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// Funcion que permite que hayan valores en la seleccion de nacimiento
 		Trabajador.llenarArrays();
 		
