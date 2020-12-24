@@ -7,10 +7,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-
 public class TrabajadoresUI extends JPanel{
 	JLabel bienvenida;
 	JButton ingresar;
