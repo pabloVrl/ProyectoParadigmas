@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
@@ -199,6 +201,58 @@ public class TrabajadoresUI extends JPanel{
 		JButton agregar = new JButton("AGREGAR");
 		agregar.setBounds(250, 380, 100, 40);
 		
+		fieldSalario.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ke) {
+				String value = fieldSalario.getText();
+				int l = value.length();
+				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+					fieldSalario.setEditable(true);
+				} else {
+					fieldSalario.setEditable(false);
+				}
+			}
+		});
+
+		fieldRut.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ke) {
+				String value = fieldSalario.getText();
+				int l = value.length();
+				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+					fieldRut.setEditable(true);
+				} else {
+					fieldRut.setEditable(false);
+				}
+			}
+		});
+		
+		fieldRutVerif.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ke) {
+				String value = fieldSalario.getText();
+				int l = value.length();
+				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == 'K' || ke.getKeyChar() == 'k' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+					fieldRutVerif.setEditable(true);
+				} else {
+					fieldRutVerif.setEditable(false);
+				}
+			}
+		});
+		
+		fieldRutVerif.addKeyListener(new KeyAdapter() {
+	        @Override
+	        public void keyTyped(KeyEvent e) {
+	            if (fieldRutVerif.getText().length() >= 1 ) // limit to 1 characters
+	                e.consume();
+	        }
+	    });
+
+		
+		fieldRut.addKeyListener(new KeyAdapter() {
+	        @Override
+	        public void keyTyped(KeyEvent e) {
+	            if (fieldRut.getText().length() >= 8 ) // limit to 9 characters
+	                e.consume();
+	        }
+	    });
 		
 		botonOpDepa(agregar);
 		
