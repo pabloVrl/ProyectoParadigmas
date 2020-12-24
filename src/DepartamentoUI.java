@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +25,7 @@ public class DepartamentoUI extends JPanel{
 		
 		
 	}
-	
+	//MENU PRINCIPAL DE DEPARTAMENTO 
 	public void home() {
 		this.removeAll();
 		this.setBounds(170, 0, 615, 500);
@@ -44,7 +45,7 @@ public class DepartamentoUI extends JPanel{
 		JButton cantTrabajadores = new JButton("CANTIDAD TOTAL DE TRABAJADORES");
 		cantTrabajadores.setBounds(60, 260, 500, 50);
 		
-		JButton nrotrabajadores_depa = new JButton("NUMERO DE TRABAJADORES POR DEPARTAMENTO");
+		JButton nrotrabajadores_depa = new JButton("NÚMERO DE TRABAJADORES POR DEPARTAMENTO");
 		nrotrabajadores_depa.setBounds(60, 320, 500, 50);
 		
 		JButton botones[] = {ingresar, eliminar, cantTrabajadores, nrotrabajadores_depa};
@@ -63,11 +64,12 @@ public class DepartamentoUI extends JPanel{
 		add(cantTrabajadores);
 		add(nrotrabajadores_depa);
 		
+		//EVENTOS BOTONES MENU DEPARTAMENTO
+		
 		ingresar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 				ingresar();
 			}
@@ -78,7 +80,6 @@ public class DepartamentoUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				
 				eliminar();
 			}
@@ -106,8 +107,10 @@ public class DepartamentoUI extends JPanel{
 			}
 			
 		});
+		//-------------------------------------------------------------------//
 	}
 	
+	//FUNCIÓN INGRESAR DEPARTAMENTO AL SISTEMA
 	private void ingresar() {
 		removeAll();
 		JLabel textTitulo = new JLabel("INGRESAR DEPARTAMENTO");
@@ -115,24 +118,34 @@ public class DepartamentoUI extends JPanel{
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
 		JLabel textNombre = new JLabel("Nombre:");
-		textNombre.setBounds(130, 180, 100, 25);
+		textNombre.setBounds(110, 180, 100, 25);
 		textNombre.setFont(new Font("",Font.BOLD,16));
 		
 		JTextField fieldNombre = new JTextField();
 		fieldNombre.setBounds(240, 180, 250, 25);
 		
+		JLabel textNumero = new JLabel("Número:");
+		textNumero.setBounds(110, 230, 100, 25);
+		textNumero.setFont(new Font("",Font.BOLD,16));
+		
+		JTextField fieldNumero = new JTextField();
+		fieldNumero.setBounds(240, 230, 250, 25);
+		
+		
 		JButton agregar = new JButton("AGREGAR");
-		agregar.setBounds(260, 280, 100, 40);
+		agregar.setBounds(240, 320, 100, 40);
 		
 		botonOpDepa(agregar);
 		
+		add(fieldNumero);
+		add(textNumero);
 		add(textNombre);
 		add(textTitulo);
 		add(agregar);
 		add(fieldNombre);
 		repaint();
 	}
-	
+	//FUNCIÓN QUE TE PERMITE ELIMINAR DEPARTAMENTO DEL SISTEMA
 	private void eliminar() {
 		removeAll();
 		JLabel textTitulo = new JLabel("ELIMINAR DEPARTAMENTO");
@@ -140,70 +153,84 @@ public class DepartamentoUI extends JPanel{
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
 		JLabel textNombre = new JLabel("Nombre:");
-		textNombre.setBounds(130, 180, 100, 25);
+		textNombre.setBounds(120, 200, 100, 25);
 		textNombre.setFont(new Font("",Font.BOLD,16));
 		
-		JTextField fieldNombre = new JTextField();
-		fieldNombre.setBounds(240, 180, 250, 25);
+		JComboBox depa = new JComboBox();
+		depa.setBounds(240, 200, 200, 25);
 		
-		JButton delete = new JButton("DELETE");
-		delete.setBounds(260, 280, 100, 40);
+		JButton delete = new JButton("ELIMINAR");
+		delete.setBounds(240, 320, 100, 40);
 		
 		botonOpDepa(delete);
 
 		add(textNombre);
 		add(textTitulo);
-		add(fieldNombre);
+		add(depa);
 		add(delete);
 		repaint();
+		validate();
 	}
-	
+	//FUNCIÓN QUE TE MUESTRA EL TOTAL DE TRABAJADORES EN LA EMPRESA
 	private void cantTrabajadores() {
 		removeAll();
 		JLabel textTitulo = new JLabel("CANTIDAD TOTAL DE TRABAJADORES");
-		textTitulo.setBounds(115, 45, 500, 50);
+		textTitulo.setBounds(40, 45, 600, 50);
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
-		JLabel NroTotalTrabajadores = new JLabel();
-		NroTotalTrabajadores.setBounds(100, 150, 50, 25);
-		
+		JLabel NroTotalTrabajadores = new JLabel("La cantidad es: ");
+		NroTotalTrabajadores.setBounds(100, 180, 300, 25);
+		NroTotalTrabajadores.setFont(new Font("",Font.BOLD,29));
 		
 		
 		add(textTitulo);
 		add(NroTotalTrabajadores);
 		repaint();
 	}
-	
+	//FUNCIÓN QUE TE MUESTRA LA CANTIDAD DE TRABAJADORES DEPENDIENDO DEL DEPARTAMENTO
 	private void nrotrabajadores_depa() {
 		removeAll();
-		JLabel textTitulo = new JLabel("NUMERO DE TRABAJADORES POR DEPTO");
-		textTitulo.setBounds(50, 45, 500, 50);
-		textTitulo.setFont(new Font("",Font.BOLD,25));
+		JLabel textTitulo = new JLabel("NÚMERO DE TRABAJADORES");
+		textTitulo.setBounds(100, 45, 600, 50);
+		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
-		JLabel nombreDepa = new JLabel("Nombre de departamento");
-		nombreDepa.setBounds(80, 150, 200, 25);
-		nombreDepa.setFont(new Font("",Font.BOLD,15));
+		JLabel textTitulo2 = new JLabel("POR DEPARTAMENTO");
+		textTitulo2.setBounds(150, 80, 400, 50);
+		textTitulo2.setFont(new Font("",Font.BOLD,29));
 		
-		JLabel nameDepa = new JLabel(".");
-		nameDepa.setBounds(80, 200, 200, 25);
-		nameDepa.setFont(new Font("",Font.BOLD,15));
+		JLabel nameDepa = new JLabel("Nombre de departamentos");
+		nameDepa.setBounds(50, 200, 300, 25);
+		nameDepa.setFont(new Font("",Font.BOLD,20));
+		
+		JComboBox nombreDepa = new JComboBox();
+		nombreDepa.setBounds(60, 250, 200, 25);
+		nombreDepa.setFont(new Font("",Font.BOLD,20));
 		
 		JLabel trabDepa = new JLabel("Cantidad de trabajadores");
-		trabDepa.setBounds(350, 150, 200, 25);
-		trabDepa.setFont(new Font("",Font.BOLD,15));
+		trabDepa.setBounds(350, 200, 300, 25);
+		trabDepa.setFont(new Font("",Font.BOLD,20));
 		
 		JLabel nroTrab = new JLabel(".");
-		nroTrab.setBounds(350, 200, 200, 25);
-		nroTrab.setFont(new Font("",Font.BOLD,15));
+		nroTrab.setBounds(350, 250, 200, 25);
+		nroTrab.setFont(new Font("",Font.BOLD,20));
+		
+		JButton mostrar = new JButton("MOSTRAR");
+		mostrar.setBounds(260, 380, 100, 40);
+		
+		botonOpDepa(mostrar);
+		
 		
 		add(textTitulo);
+		add(textTitulo2);
 		add(nombreDepa);
 		add(trabDepa);
 		add(nroTrab);
 		add(nameDepa);
+		add(mostrar);
 		repaint();
+		validate();
 	}
-	
+    //EDITOR DE BOTONES
 	public void botonOpDepa(JButton boton){
 		
 		boton.setBackground(new Color(82, 82, 78));
