@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Trabajador {
 	private Rut Rut;
@@ -7,6 +8,9 @@ public class Trabajador {
 	private float salarioxHora;
 
 	public static String[] contratos = {"Part-time", "Full-time"};
+	public static ArrayList<Integer> dia = new ArrayList<>();
+	public static ArrayList<Integer> mes = new ArrayList<>();
+	public static ArrayList<Integer> anio = new ArrayList<>();
 
 	public Trabajador(Rut Rut, String nombre, String apellidoP, String apellidoM, FechaNacimiento fechaNac, String tipoContrato, float salario) {
 		this.Rut = Rut;
@@ -16,6 +20,20 @@ public class Trabajador {
 		this.fechaNac = fechaNac;
 		this.tipoContrato = tipoContrato;
 		this.salarioxHora = salario;
+	}
+	
+	public static void llenarArrays() {
+		for(int i = 1; i <= 31; i++) {
+			Trabajador.dia.add(i);
+		};
+		
+		for(int i = 1; i <= 12; i++) {
+			Trabajador.mes.add(i);
+		};
+		
+		for(int i = 2020; i > 1900; i--) {
+			Trabajador.anio.add(i);
+		};
 	}
 
 	public Rut getRUT() {

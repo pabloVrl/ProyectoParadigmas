@@ -7,6 +7,8 @@ import javax.swing.*;
 public class Main { 
 
 	public static void main(String[] args) {
+		// Funcion que permite que hayan valores en la seleccion de nacimiento
+		Trabajador.llenarArrays();
 		
 		JFrame v = new JFrame();
 		v.setLayout(null);

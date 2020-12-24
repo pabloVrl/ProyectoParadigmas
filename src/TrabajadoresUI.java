@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 public class TrabajadoresUI extends JPanel{
 	JLabel bienvenida;
 	JButton ingresar;
@@ -159,28 +163,56 @@ public class TrabajadoresUI extends JPanel{
 		fieldRutVerif.setBounds(470, 210, 20, 25);
 		
 		JLabel textContrato = new JLabel("Tipo Contrato:");
-		textContrato.setBounds(60, 270, 200, 25);
+		textContrato.setBounds(75, 240, 200, 25);
 		textContrato.setFont(new Font("",Font.BOLD,16));
 		
-		JButton agregar = new JButton("AGREGAR");
-		agregar.setBounds(250, 270, 100, 40);
-		
 		JComboBox tipoContrato = new JComboBox(Trabajador.contratos);
-		tipoContrato.setBounds(240, 270, 200, 25);
+		tipoContrato.setBounds(240, 240, 250, 25);
+		
+		JLabel textDepa = new JLabel("Departamento:");
+		textDepa.setBounds(75, 270, 200, 25);
+		textDepa.setFont(new Font("",Font.BOLD,16));
+		
+		JComboBox departamento = new JComboBox();
+		departamento.setBounds(240, 270, 250, 25);
+		
+		JLabel textNacimiento = new JLabel("Nacimiento:");
+		textNacimiento.setBounds(80, 300, 200, 25);
+		textNacimiento.setFont(new Font("",Font.BOLD,16));
+		
+		JComboBox dia = new JComboBox(Trabajador.dia.toArray());
+		dia.setBounds(240, 300, 50, 25);
+		
+		JComboBox mes = new JComboBox(Trabajador.mes.toArray());
+		mes.setBounds(300, 300, 50, 25);
+		
+		JComboBox anio = new JComboBox(Trabajador.anio.toArray());
+		anio.setBounds(360, 300, 100, 25);
+		
+		JLabel textSalario = new JLabel("Salario por hora:");
+		textSalario.setBounds(60, 330, 200, 25);
+		textSalario.setFont(new Font("",Font.BOLD,16));
+		
+		JTextField fieldSalario = new JTextField();
+		fieldSalario.setBounds(240, 330, 250, 25);
+		
+		JButton agregar = new JButton("AGREGAR");
+		agregar.setBounds(250, 380, 100, 40);
+		
 		
 		botonOpDepa(agregar);
 		
-		add(textNombre);
 		add(textTitulo);
-		add(textApellidoM);
-		add(textApellidoP);
-		add(fieldApellidoM);
-		add(fieldApellidoP);
+		add(textNombre); add(fieldNombre);
+		add(textApellidoM); add(fieldApellidoM);
+		add(textApellidoP); add(fieldApellidoP);
 		add(agregar);
-		add(fieldNombre);
-		add(textContrato);
-		add(tipoContrato);
-		add(textRut); add(fieldRut); add(fieldRutVerif); add(textGuion);
+		add(textContrato); add(tipoContrato);
+		add(textRut); add(fieldRut); 
+		add(fieldRutVerif); add(textGuion);
+		add(textDepa); add(departamento);
+		add(textNacimiento); add(dia); add(mes); add(anio);
+		add(textSalario); add(fieldSalario);
 		revalidate();
 		repaint();
 	}
