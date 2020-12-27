@@ -9,6 +9,11 @@ import javax.swing.*;
 public class Main { 
 
 	public static void main(String[] args) throws IOException {
+		try {
+			Departamento.cargarDatos();
+		}catch (Exception e) {
+			
+		}
 		// Funcion que permite que hayan valores en la seleccion de nacimiento
 		Trabajador.llenarArrays();
 		

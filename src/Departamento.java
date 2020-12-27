@@ -9,88 +9,123 @@ import org.json.JSONObject;
 
 public class Departamento {
 
-	private int numeroDepa;
-	private String nombreDepa;
+	private int ID;
+	private String nombre;
 	private int numeroTrabajadores;
-	private ArrayList<Trabajador> trabajadores;
 	
-	public static ArrayList<String> departamentos;
+	public static JSONArray departamentos = new JSONArray();
 	
-	public Departamento(int numeroDepa,String nombreDepa,int numeroTrabajadores){
-
-		this.numeroDepa = numeroDepa;
-		this.nombreDepa = nombreDepa;
-		this.numeroTrabajadores = numeroTrabajadores;
+	public Departamento(String nombreDepa){
+		
+		if(departamentos.isEmpty()) {
+			ID = 1;
+		}
+		else {
+			JSONObject depto = departamentos.getJSONObject(departamentos.length()-1);
+			ID = depto.getInt("ID") + 1;
+		}
+		this.nombre = nombreDepa;
+		this.numeroTrabajadores = 0;
+		
+		departamentos.put(this.toJson());
+		
+		actualizarJson();
 	}
 	
-	public static ArrayList<String> deptosActuales() throws IOException {
-		departamentos = new ArrayList<String>();
-		String content = new String(Files.readAllBytes(Paths.get("departamentos.json")));
-		JSONArray depLeidos = new JSONArray(content);
-		
-		for(int i = 0; i < depLeidos.length(); i++) {
-			JSONObject depto = depLeidos.getJSONObject(i);
-			departamentos.add(depto.getString("nombre"));
+	public static ArrayList<String> getNombresDeptos() {
+		ArrayList<String> nombres = new ArrayList<>();
+		JSONObject depto;
+		for(int i = 0; i < departamentos.length(); i++) {
+			depto = departamentos.getJSONObject(i);
+			nombres.add(depto.getString("nombre"));
 		}
 		
-		System.out.println(departamentos.toString());
+		return nombres;
+	}
+	
+	public static void eliminarDepa(String name) {
+		JSONObject obj;
+		for(int i = 0; i < departamentos.length(); i++) {
+			obj = departamentos.getJSONObject(i);
+			if(obj.getString("nombre").equals(name)) {
+				departamentos.remove(i);
+			}
+		}
+		actualizarJson();
+	}
+	
+	public static void cargarDatos() throws IOException {
+		String content = new String(Files.readAllBytes(Paths.get("departamentos.json")));
+		JSONObject obj = new JSONObject(content);
+		JSONArray deptosCargados = obj.getJSONArray("departamentos");
 		
-		return departamentos;
+		for(int i = 0; i < deptosCargados.length(); i++) {
+			obj = deptosCargados.getJSONObject(i);
+			departamentos.put(obj);
+		}
 		
 		
 	}
 	
-	public void addJson() {
+	private static void actualizarJson() {
 		FileWriter file;
+		JSONObject obj = new JSONObject();
+		obj.put("departamentos", departamentos);
+		
 		try {
-			file = new FileWriter("departamentos.json", true);
-			file.append(convertirAJson().toString(1));
-			file.append("\n");
+			file = new FileWriter("departamentos.json");
+			file.write(obj.toString(3));
 			file.flush();
 			file.close();
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
-
 		}
-
+			
 	}
-	 
-	private JSONObject convertirAJson() {
-		JSONObject depa = new JSONObject();
-		depa.put("nombre", this.nombreDepa);
-		depa.put("numero", this.numeroDepa);
-		depa.put("numeroTrabajadores", this.numeroTrabajadores);
-
-		return depa;
+	
+	private JSONObject toJson() {
+		JSONObject depto = new JSONObject();
+		depto.put("ID", ID);
+		depto.put("nombre", nombre);
+		depto.put("numeroTrabajadores", numeroTrabajadores);
+		return depto;
 	}
+	
+	public static String getNroTotalTrabajadores() {
+		JSONObject obj;
+		int nroTotal = 0;
+		 for(int i = 0; i < departamentos.length(); i++) {
+			 obj = departamentos.getJSONObject(i);
+			 nroTotal += obj.getInt("numeroTrabajadores");
+		 }
+		 
+		return String.valueOf(nroTotal);
+	}
+	
 	 
-	 
-	 public void ingresarTrabajador(Trabajador t) {
-		 trabajadores.add(t);
-	 }
-	 
-	 public int getNumeroTrabajadores() {
-		return numeroTrabajadores;
+	 public static String getNumeroTrabajadores(String nombre) {
+		 JSONObject obj;
+		 
+		 for(int i = 0; i < departamentos.length(); i++) {
+			 obj = departamentos.getJSONObject(i);
+			 if(obj.getString("nombre").equals(nombre)) {
+				 return String.valueOf(obj.getInt("numeroTrabajadores"));
+			 }
+		 }
+		 
+		return null;
 	}
 
     public String getNombreDepa() {
-		return nombreDepa;
-	}
-
-    public int getNumeroDepa() {
-		return numeroDepa;
+		return nombre;
 	}
 	
 	public void setNumeroTrabajadores(int numeroTrabajadores) {
 		this.numeroTrabajadores = numeroTrabajadores;
 	}
-
-	public void setNumeroDepa(int numeroDepa) {
-		this.numeroDepa = numeroDepa;
-	}
-
+	
 	public void setNombreDepa(String nombreDepa) {
-		this.nombreDepa = nombreDepa;
+		this.nombre = nombreDepa;
 	}
 
 	  

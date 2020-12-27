@@ -64,6 +64,9 @@ public class DepartamentoUI extends JPanel{
 		add(cantTrabajadores);
 		add(nrotrabajadores_depa);
 		
+		repaint();
+		revalidate();
+		
 		//EVENTOS BOTONES MENU DEPARTAMENTO
 		
 		ingresar.addActionListener(new ActionListener() {
@@ -124,12 +127,12 @@ public class DepartamentoUI extends JPanel{
 		JTextField fieldNombre = new JTextField();
 		fieldNombre.setBounds(240, 180, 250, 25);
 		
-		JLabel textNumero = new JLabel("Número:");
-		textNumero.setBounds(110, 230, 100, 25);
-		textNumero.setFont(new Font("",Font.BOLD,16));
-		
-		JTextField fieldNumero = new JTextField();
-		fieldNumero.setBounds(240, 230, 250, 25);
+//		JLabel textNumero = new JLabel("Número:");
+//		textNumero.setBounds(110, 230, 100, 25);
+//		textNumero.setFont(new Font("",Font.BOLD,16));
+//		
+//		JTextField fieldNumero = new JTextField();
+//		fieldNumero.setBounds(240, 230, 250, 25);
 		
 		
 		JButton agregar = new JButton("AGREGAR");
@@ -141,18 +144,14 @@ public class DepartamentoUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("FUNCIONA");
-				String nombre = fieldNombre.getText();
-				int numero = Integer.parseInt(fieldNumero.getText());
-				Departamento depa = new Departamento(numero, nombre, 0);
-				depa.addJson();
+				Departamento p = new Departamento(fieldNombre.getText());
+				home();
 			}
 			
 		});
 		
-		add(fieldNumero);
-		add(textNumero);
+//		add(fieldNumero);
+//		add(textNumero);
 		add(textNombre);
 		add(textTitulo);
 		add(agregar);
@@ -170,13 +169,29 @@ public class DepartamentoUI extends JPanel{
 		textNombre.setBounds(120, 200, 100, 25);
 		textNombre.setFont(new Font("",Font.BOLD,16));
 		
-		JComboBox depa = new JComboBox();
+		JComboBox depa = new JComboBox(Departamento.getNombresDeptos().toArray());
 		depa.setBounds(240, 200, 200, 25);
 		
 		JButton delete = new JButton("ELIMINAR");
 		delete.setBounds(240, 320, 100, 40);
 		
 		botonOpDepa(delete);
+		
+		delete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remove(depa);
+				Departamento.eliminarDepa((String) depa.getSelectedItem());
+				JComboBox depa = new JComboBox(Departamento.getNombresDeptos().toArray());
+				depa.setBounds(240, 200, 200, 25);
+				add(depa);
+				repaint();
+				revalidate();
+				eliminar();
+			}
+			
+		});
 
 		add(textNombre);
 		add(textTitulo);
@@ -192,7 +207,7 @@ public class DepartamentoUI extends JPanel{
 		textTitulo.setBounds(40, 45, 600, 50);
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
-		JLabel NroTotalTrabajadores = new JLabel("La cantidad es: ");
+		JLabel NroTotalTrabajadores = new JLabel("La cantidad es: " + Departamento.getNroTotalTrabajadores());
 		NroTotalTrabajadores.setBounds(100, 180, 300, 25);
 		NroTotalTrabajadores.setFont(new Font("",Font.BOLD,29));
 		
@@ -216,7 +231,8 @@ public class DepartamentoUI extends JPanel{
 		nameDepa.setBounds(50, 200, 300, 25);
 		nameDepa.setFont(new Font("",Font.BOLD,20));
 		
-		JComboBox nombreDepa = new JComboBox();
+		revalidate();
+		JComboBox nombreDepa = new JComboBox(Departamento.getNombresDeptos().toArray());
 		nombreDepa.setBounds(60, 250, 200, 25);
 		nombreDepa.setFont(new Font("",Font.BOLD,20));
 		
@@ -224,14 +240,19 @@ public class DepartamentoUI extends JPanel{
 		trabDepa.setBounds(350, 200, 300, 25);
 		trabDepa.setFont(new Font("",Font.BOLD,20));
 		
-		JLabel nroTrab = new JLabel(".");
+		JLabel nroTrab = new JLabel(Departamento.getNumeroTrabajadores((String) nombreDepa.getSelectedItem()));
 		nroTrab.setBounds(350, 250, 200, 25);
 		nroTrab.setFont(new Font("",Font.BOLD,20));
 		
-		JButton mostrar = new JButton("MOSTRAR");
-		mostrar.setBounds(260, 380, 100, 40);
-		
-		botonOpDepa(mostrar);
+		nombreDepa.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nroTrab.setText(Departamento.getNumeroTrabajadores((String) nombreDepa.getSelectedItem()));
+				
+			}
+			
+		});
 		
 		
 		add(textTitulo);
@@ -240,7 +261,6 @@ public class DepartamentoUI extends JPanel{
 		add(trabDepa);
 		add(nroTrab);
 		add(nameDepa);
-		add(mostrar);
 		repaint();
 		validate();
 	}
