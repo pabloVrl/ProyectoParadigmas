@@ -1,0 +1,44 @@
+{"trabajadores": [
+   {
+      "rut": "123-1",
+      "apellidoPaterno": "asd",
+      "fechaNacimiento": {
+         "mes": "1",
+         "dia": "1",
+         "año": "2020"
+      },
+      "tipoContrato": "Part-time",
+      "departamento": "Informatica",
+      "salarioPorHora": 1,
+      "nombre": "asd",
+      "apellidoMaterno": "asd"
+   },
+   {
+      "rut": "123-1",
+      "apellidoPaterno": "123",
+      "fechaNacimiento": {
+         "mes": "1",
+         "dia": "1",
+         "año": "2020"
+      },
+      "tipoContrato": "Part-time",
+      "departamento": "Informatica",
+      "salarioPorHora": 23123,
+      "nombre": "123",
+      "apellidoMaterno": "123"
+   },
+   {
+      "rut": "77777777-7",
+      "apellidoPaterno": "123123",
+      "fechaNacimiento": {
+         "mes": "1",
+         "dia": "1",
+         "año": "2020"
+      },
+      "tipoContrato": "Part-time",
+      "departamento": "Matematicas",
+      "salarioPorHora": 123123,
+      "nombre": "123123",
+      "apellidoMaterno": "1231"
+   }
+]}

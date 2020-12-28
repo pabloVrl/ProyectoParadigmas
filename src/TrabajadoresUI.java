@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -28,7 +29,7 @@ public class TrabajadoresUI extends JPanel{
 	
 	//MENU PRINCIPAL DE TRABAJADORES
 	public void home() {
-		this.removeAll();
+		removeAll();
 		
 		bienvenida = new JLabel("PANEL DE TRABAJADORES");
 		bienvenida.setBounds(115, 45, 500, 50);
@@ -89,7 +90,7 @@ public class TrabajadoresUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//modificar ();
+				modificar ();
 			}
 			
 		});
@@ -112,146 +113,176 @@ public class TrabajadoresUI extends JPanel{
 			}
 			
 		});
+		repaint();
+		revalidate();
 		
 		//----------------------------------------//
 		
 	}
 	//FUNCIÓN QUE AGREGA UN TRABAJADOR AL SISTEMA
 	public void ingresar() {
-		
-		removeAll();
-		JLabel textTitulo = new JLabel("INGRESAR TRABAJADOR");
-		textTitulo.setBounds(115, 45, 500, 50);
-		textTitulo.setFont(new Font("",Font.BOLD,29));
-		
-		JLabel textNombre = new JLabel("Nombre:");
-		textNombre.setBounds(90, 120, 100, 25);
-		textNombre.setFont(new Font("",Font.BOLD,16));
-		
-		JTextField fieldNombre = new JTextField();
-		fieldNombre.setBounds(240, 120, 250, 25);
-		
-		JLabel textApellidoP = new JLabel("Apellido Paterno:");
-		textApellidoP.setBounds(60, 150, 200, 25);
-		textApellidoP.setFont(new Font("",Font.BOLD,16));
-		
-		JTextField fieldApellidoP = new JTextField();
-		fieldApellidoP.setBounds(240, 150, 250, 25);
-		
-		JLabel textApellidoM = new JLabel("Apellido Materno:");
-		textApellidoM.setBounds(60, 180, 200, 25);
-		textApellidoM.setFont(new Font("",Font.BOLD,16));
-		
-		JTextField fieldApellidoM = new JTextField();
-		fieldApellidoM.setBounds(240, 180, 250, 25);
-		
-		JLabel textRut = new JLabel("RUT:");
-		textRut.setBounds(110, 210, 200, 25);
-		textRut.setFont(new Font("",Font.BOLD,16));
-		
-		JTextField fieldRut = new JTextField();
-		fieldRut.setBounds(240, 210, 210, 25);
-		
-		JLabel textGuion = new JLabel("-");
-		textGuion.setBounds(455, 205, 200, 25);
-		textGuion.setFont(new Font("",Font.BOLD,28));
-		
-		JTextField fieldRutVerif = new JTextField();
-		fieldRutVerif.setBounds(470, 210, 20, 25);
-		
-		JLabel textContrato = new JLabel("Tipo Contrato:");
-		textContrato.setBounds(75, 240, 200, 25);
-		textContrato.setFont(new Font("",Font.BOLD,16));
-		
-		JComboBox tipoContrato = new JComboBox(Trabajador.contratos);
-		tipoContrato.setBounds(240, 240, 250, 25);
-		
-		JLabel textDepa = new JLabel("Departamento:");
-		textDepa.setBounds(75, 270, 200, 25);
-		textDepa.setFont(new Font("",Font.BOLD,16));
-		
-		JComboBox departamento = new JComboBox();
-		departamento.setBounds(240, 270, 250, 25);
-		
-		JLabel textNacimiento = new JLabel("Nacimiento:");
-		textNacimiento.setBounds(80, 300, 200, 25);
-		textNacimiento.setFont(new Font("",Font.BOLD,16));
-		
-		JComboBox dia = new JComboBox(Trabajador.dia.toArray());
-		dia.setBounds(240, 300, 50, 25);
-		
-		JComboBox mes = new JComboBox(Trabajador.mes.toArray());
-		mes.setBounds(300, 300, 50, 25);
-		
-		JComboBox anio = new JComboBox(Trabajador.anio.toArray());
-		anio.setBounds(360, 300, 100, 25);
-		
-		JLabel textSalario = new JLabel("Salario por hora:");
-		textSalario.setBounds(60, 330, 200, 25);
-		textSalario.setFont(new Font("",Font.BOLD,16));
-		
-		JTextField fieldSalario = new JTextField();
-		fieldSalario.setBounds(240, 330, 250, 25);
-		
-		JButton agregar = new JButton("AGREGAR");
-		agregar.setBounds(250, 380, 100, 40);
-		
-		//VALIDACIÓN SALARIO
-		fieldSalario.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent ke) {
-				validacionDeNumeros(fieldSalario,ke);
-			}
-		});
+		if(!Departamento.departamentos.isEmpty()) {
+			removeAll();
+			JLabel textTitulo = new JLabel("INGRESAR TRABAJADOR");
+			textTitulo.setBounds(115, 45, 500, 50);
+			textTitulo.setFont(new Font("",Font.BOLD,29));
 
-		//VALIDACIÓN RUT
-		fieldRut.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent ke) {
-				validacionDeNumeros(fieldRut,ke);
-			}
-		});
-		
-		fieldRutVerif.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent ke) {
-				String value = fieldRutVerif.getText();
-				int l = value.length();
-				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == 'K' || ke.getKeyChar() == 'k' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
-					fieldRutVerif.setEditable(true);
-				} else {
-					fieldRutVerif.setEditable(false);
+			JLabel textNombre = new JLabel("Nombre:");
+			textNombre.setBounds(90, 120, 100, 25);
+			textNombre.setFont(new Font("",Font.BOLD,16));
+
+			JTextField fieldNombre = new JTextField();
+			fieldNombre.setBounds(240, 120, 250, 25);
+
+			JLabel textApellidoP = new JLabel("Apellido Paterno:");
+			textApellidoP.setBounds(60, 150, 200, 25);
+			textApellidoP.setFont(new Font("",Font.BOLD,16));
+
+			JTextField fieldApellidoP = new JTextField();
+			fieldApellidoP.setBounds(240, 150, 250, 25);
+
+			JLabel textApellidoM = new JLabel("Apellido Materno:");
+			textApellidoM.setBounds(60, 180, 200, 25);
+			textApellidoM.setFont(new Font("",Font.BOLD,16));
+
+			JTextField fieldApellidoM = new JTextField();
+			fieldApellidoM.setBounds(240, 180, 250, 25);
+
+			JLabel textRut = new JLabel("RUT:");
+			textRut.setBounds(110, 210, 200, 25);
+			textRut.setFont(new Font("",Font.BOLD,16));
+
+			JTextField fieldRut = new JTextField();
+			fieldRut.setBounds(240, 210, 210, 25);
+
+			JLabel textGuion = new JLabel("-");
+			textGuion.setBounds(455, 205, 200, 25);
+			textGuion.setFont(new Font("",Font.BOLD,28));
+
+			JTextField fieldRutVerif = new JTextField();
+			fieldRutVerif.setBounds(470, 210, 20, 25);
+
+			JLabel textContrato = new JLabel("Tipo Contrato:");
+			textContrato.setBounds(75, 240, 200, 25);
+			textContrato.setFont(new Font("",Font.BOLD,16));
+
+			JComboBox tipoContrato = new JComboBox(Trabajador.contratos);
+			tipoContrato.setBounds(240, 240, 250, 25);
+
+			JLabel textDepa = new JLabel("Departamento:");
+			textDepa.setBounds(75, 270, 200, 25);
+			textDepa.setFont(new Font("",Font.BOLD,16));
+
+			JComboBox departamento = new JComboBox(Departamento.getNombresDeptos().toArray());
+			departamento.setBounds(240, 270, 250, 25);
+
+			JLabel textNacimiento = new JLabel("Nacimiento:");
+			textNacimiento.setBounds(80, 300, 200, 25);
+			textNacimiento.setFont(new Font("",Font.BOLD,16));
+
+			JComboBox dia = new JComboBox(FechaNacimiento.arrDia.toArray());
+			dia.setBounds(240, 300, 50, 25);
+
+			JComboBox mes = new JComboBox(FechaNacimiento.arrMes.toArray());
+			mes.setBounds(300, 300, 50, 25);
+
+			JComboBox anio = new JComboBox(FechaNacimiento.arrAnio.toArray());
+			anio.setBounds(360, 300, 100, 25);
+
+			JLabel textSalario = new JLabel("Salario por hora:");
+			textSalario.setBounds(60, 330, 200, 25);
+			textSalario.setFont(new Font("",Font.BOLD,16));
+
+			JTextField fieldSalario = new JTextField();
+			fieldSalario.setBounds(240, 330, 250, 25);
+
+			JButton agregar = new JButton("AGREGAR");
+			agregar.setBounds(250, 380, 100, 40);
+
+			//VALIDACIÓN SALARIO
+			fieldSalario.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent ke) {
+					validacionDeNumeros(fieldSalario,ke);
 				}
-			}
-		});
-		
-		fieldRutVerif.addKeyListener(new KeyAdapter() {
-	        @Override
-	        public void keyTyped(KeyEvent e) {
-	        	validadorRutVerificador(fieldRutVerif, 1, e);
-	        }
-	    });
+			});
 
-		
-		fieldRut.addKeyListener(new KeyAdapter() {
-	        @Override
-	        public void keyTyped(KeyEvent e) {
-	        	validadorRutVerificador(fieldRut, 8, e);
-	        }
-	    });
-		//------------------------------------------------------------//
-		botonOpTrab(agregar);
-		
-		add(textTitulo);
-		add(textNombre); add(fieldNombre);
-		add(textApellidoM); add(fieldApellidoM);
-		add(textApellidoP); add(fieldApellidoP);
-		add(agregar);
-		add(textContrato); add(tipoContrato);
-		add(textRut); add(fieldRut); 
-		add(fieldRutVerif); add(textGuion);
-		add(textDepa); add(departamento);
-		add(textNacimiento); add(dia); add(mes); add(anio);
-		add(textSalario); add(fieldSalario);
-		revalidate();
-		repaint();
+			//VALIDACIÓN RUT
+			fieldRut.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent ke) {
+					validacionDeNumeros(fieldRut,ke);
+				}
+			});
+
+			fieldRutVerif.addKeyListener(new KeyAdapter() {
+				public void keyPressed(KeyEvent ke) {
+					String value = fieldRutVerif.getText();
+					int l = value.length();
+					if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == 'K' || ke.getKeyChar() == 'k' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+						fieldRutVerif.setEditable(true);
+					} else {
+						fieldRutVerif.setEditable(false);
+					}
+				}
+			});
+
+			fieldRutVerif.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					validadorRutVerificador(fieldRutVerif, 1, e);
+				}
+			});
+
+
+			fieldRut.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					validadorRutVerificador(fieldRut, 8, e);
+				}
+			});
+			//------------------------------------------------------------//
+			botonOpTrab(agregar);
+
+			agregar.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Rut rut = new Rut(fieldRut.getText(), fieldRutVerif.getText());
+					String nombre = fieldNombre.getText();
+					String apellidoP = fieldApellidoP.getText();
+					String apellidoM = fieldApellidoM.getText();
+					String diaNac = (String) dia.getSelectedItem();
+					String mesNac = (String) mes.getSelectedItem();
+					String anioNac = (String) anio.getSelectedItem();
+					FechaNacimiento fechaNac = new FechaNacimiento(diaNac, mesNac, anioNac);
+					String contrato = (String) tipoContrato.getSelectedItem();
+					int salario = Integer.parseInt(fieldSalario.getText());
+					String depa = (String) departamento.getSelectedItem();
+					Trabajador t = new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
+					Departamento.addTrabajador(depa);
+					JOptionPane.showMessageDialog(null, "Usuario creado con éxito");
+					ingresar();
+				}
+
+			});
+
+			add(textTitulo);
+			add(textNombre); add(fieldNombre);
+			add(textApellidoM); add(fieldApellidoM);
+			add(textApellidoP); add(fieldApellidoP);
+			add(agregar);
+			add(textContrato); add(tipoContrato);
+			add(textRut); add(fieldRut); 
+			add(fieldRutVerif); add(textGuion);
+			add(textDepa); add(departamento);
+			add(textNacimiento); add(dia); add(mes); add(anio);
+			add(textSalario); add(fieldSalario);
+			revalidate();
+			repaint();
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "NO se puede crear trabajador si NO hay departamentos");
+			home();
+		}
 	}
 	//FUNCIÓN QUE ELIMINA UN TRABAJADOR DEL SISTEMA
 	public void eliminar() {
@@ -261,23 +292,47 @@ public class TrabajadoresUI extends JPanel{
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
 		JLabel textRut = new JLabel("RUT:");
-		textRut.setBounds(120, 210, 200, 25);
+		textRut.setBounds(120, 100, 200, 25);
 		textRut.setFont(new Font("",Font.BOLD,16));
 		
 		JTextField fieldRut = new JTextField();
-		fieldRut.setBounds(240, 210, 210, 25);
+		fieldRut.setBounds(240, 100, 210, 25);
 		
 		JLabel textGuion = new JLabel("-");
-		textGuion.setBounds(455, 205, 200, 25);
+		textGuion.setBounds(455, 95, 200, 25);
 		textGuion.setFont(new Font("",Font.BOLD,28));
 		
 		JTextField fieldRutVerif = new JTextField();
-		fieldRutVerif.setBounds(470, 210, 20, 25);
+		fieldRutVerif.setBounds(470, 100, 20, 25);
 		
 		JButton delete = new JButton("ELIMINAR");
-		delete.setBounds(250, 300, 100, 40);
+		delete.setBounds(250, 400, 100, 40);
 		
+		Trabajador.llenarMatriz();
+		
+		JTable tabla = new JTable(Trabajador.matriz, Trabajador.atributos);
+		tabla.setEnabled(false);
+		
+		JScrollPane sp = new JScrollPane(tabla);
+		sp.setBounds(35, 150, 550, 225);
 		botonOpTrab(delete);
+		
+		delete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Trabajador.eliminarTrabajador(fieldRut.getText()+"-"+fieldRutVerif.getText());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				eliminar();
+				
+			}
+			
+		});
 		
 		//VALIDACION RUT	
 		fieldRut.addKeyListener(new KeyAdapter() {
@@ -314,11 +369,16 @@ public class TrabajadoresUI extends JPanel{
 	    });
 		
 		//-----------------------------------------------------------//
-	
+		add(sp);
+		//this.add(tabla);
+		repaint();
+		validate();
 		add(delete);
 		add(textTitulo);
 		add(textRut); add(fieldRut); add(fieldRutVerif); add(textGuion);
+		setVisible(true);
 		repaint();
+		validate();
 		
 	}
 	//FUNCIÓN QUE MODIFICA INFORMACIÓN DE UN TRABAJADOR

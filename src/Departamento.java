@@ -32,6 +32,19 @@ public class Departamento {
 		actualizarJson();
 	}
 	
+	public static void addTrabajador(String name) {
+		JSONObject obj;
+		for(int i = 0; i < departamentos.length(); i++) {
+			obj = departamentos.getJSONObject(i);
+			if(obj.getString("nombre").equals(name)) {
+				int trabajadores = obj.getInt("numeroTrabajadores") + 1;
+				obj.remove("numeroTrabajadores");
+				obj.put("numeroTrabajadores", trabajadores);
+			}
+		}
+		actualizarJson();
+	}
+	
 	public static ArrayList<String> getNombresDeptos() {
 		ArrayList<String> nombres = new ArrayList<>();
 		JSONObject depto;
@@ -63,8 +76,6 @@ public class Departamento {
 			obj = deptosCargados.getJSONObject(i);
 			departamentos.put(obj);
 		}
-		
-		
 	}
 	
 	private static void actualizarJson() {

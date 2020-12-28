@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -145,6 +146,7 @@ public class DepartamentoUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Departamento p = new Departamento(fieldNombre.getText());
+				JOptionPane.showMessageDialog(null, "Departamento creado con éxito");
 				home();
 			}
 			
@@ -188,6 +190,7 @@ public class DepartamentoUI extends JPanel{
 				add(depa);
 				repaint();
 				revalidate();
+				JOptionPane.showMessageDialog(null, "Departamento eliminado");
 				eliminar();
 			}
 			

@@ -11,11 +11,12 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		try {
 			Departamento.cargarDatos();
+			Trabajador.cargarDatos();
 		}catch (Exception e) {
 			
 		}
 		// Funcion que permite que hayan valores en la seleccion de nacimiento
-		Trabajador.llenarArrays();
+		FechaNacimiento.llenarArrays();
 		
 		JFrame v = new JFrame();
 		v.setLayout(null);

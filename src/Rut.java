@@ -1,26 +1,32 @@
 
 public class Rut {
-	private int digitos;
-	private char verificador;
+	private String digitos;
+	private String verificador;
 	
-	public Rut(int digitos, char verificador) {
+	public Rut(String digitos, String verificador) {
 		this.digitos = digitos;
 		this.verificador = verificador;
 	}
 
-	public int getDigitos() {
+	public String getString() {
+		return digitos + "-" + verificador;
+	}
+
+	public String getDigitos() {
 		return digitos;
 	}
 
-	public void setDigitos(int digitos) {
+	public void setDigitos(String digitos) {
 		this.digitos = digitos;
 	}
 
-	public char getVerificador() {
+	public String getVerificador() {
 		return verificador;
 	}
 
-	public void setVerificador(char verificador) {
+	public void setVerificador(String verificador) {
 		this.verificador = verificador;
 	}
+
+	
 }
