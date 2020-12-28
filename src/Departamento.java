@@ -56,8 +56,9 @@ public class Departamento {
 		return nombres;
 	}
 	
-	public static void eliminarDepa(String name) {
+	public static void eliminarDepa(String name) throws IOException {
 		JSONObject obj;
+		Trabajador.eliminarTrabPorDepa(name);
 		for(int i = 0; i < departamentos.length(); i++) {
 			obj = departamentos.getJSONObject(i);
 			if(obj.getString("nombre").equals(name)) {

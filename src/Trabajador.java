@@ -36,6 +36,19 @@ public class Trabajador {
 		actualizarJson();
 	}
 	
+	public static void eliminarTrabPorDepa(String nombre) throws IOException {
+		String content = new String(Files.readAllBytes(Paths.get("trabajadores.json")));
+		JSONObject obj = new JSONObject(content);
+		JSONArray trabajCargados = obj.getJSONArray("trabajadores");
+		
+		for(int i = 0; i < trabajCargados.length(); i++) {
+			obj = trabajCargados.getJSONObject(i);
+			if(obj.getString("departamento").equals(nombre)) {
+				eliminarTrabajador(obj.getString("rut"));
+			}
+		}
+	}
+	
 	public static void eliminarTrabajador(String rut) throws IOException {
 		String content = new String(Files.readAllBytes(Paths.get("trabajadores.json")));
 		JSONObject obj = new JSONObject(content);

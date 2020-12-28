@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -184,7 +185,12 @@ public class DepartamentoUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remove(depa);
-				Departamento.eliminarDepa((String) depa.getSelectedItem());
+				try {
+					Departamento.eliminarDepa((String) depa.getSelectedItem());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				JComboBox depa = new JComboBox(Departamento.getNombresDeptos().toArray());
 				depa.setBounds(240, 200, 200, 25);
 				add(depa);
