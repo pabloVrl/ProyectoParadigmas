@@ -517,7 +517,7 @@ public class TrabajadoresUI extends JPanel{
 		nombre.setBounds(40, 200, 200, 25);
 		nombre.setFont(new Font("",Font.BOLD,25));
 		
-		JComboBox trabajadores = new JComboBox();
+		JComboBox trabajadores = new JComboBox(Trabajador.getNombresTrabajadores().toArray());
 		trabajadores.setBounds(240, 200, 250, 25);
 		
 		JButton liquidacion = new JButton("GENERAR");
@@ -530,12 +530,10 @@ public class TrabajadoresUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-			MostrarLiquidacion();	
+			MostrarLiquidacion((String)trabajadores.getSelectedItem());	
 				
 			}
-			
-			
-				
+						
 		});
 		add(textTitulo);
 		add(nombre);
@@ -546,15 +544,26 @@ public class TrabajadoresUI extends JPanel{
 		validate();
 	}
 	//FUNCIÓN QUE MUESTA LOS DATOS DE LA LIQUIDACIÓN
-	public void MostrarLiquidacion() {
+	public void MostrarLiquidacion(String nombre) {
 		
 		removeAll();
 		JLabel textTitulo = new JLabel("LIQUIDACION DE SUELDO");
 		textTitulo.setBounds(125, 45, 600, 50);
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
+		Trabajador.llenarMatrizLiquidacion(nombre);
+		
+		JTable tabla = new JTable(Trabajador.matrizLiquidacion,Trabajador.atributosLiquidacion);
+		tabla.setBounds(110, 200, 500, 500);
+		tabla.setEnabled(false);
+		
+		
+		JScrollPane sp = new JScrollPane(tabla);
+		sp.setBounds(35, 150, 550, 199);
+		
+		
 		JButton volver = new JButton("VOLVER");
-		volver.setBounds(240, 350, 120, 45);
+		volver.setBounds(240, 380, 120, 45);
 		
 		botonOpTrab(volver);
 		
@@ -562,15 +571,20 @@ public class TrabajadoresUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				generarLiquidacion();
 				
 			}
 				
 		});
 		
+		
+		
 		add(textTitulo);
+		add(sp);
 		add(volver);
 		repaint();
+		
 	}
    //FUNCIÓN PARA PERSONALIZAR LOS BOTONES
    public void botonOpTrab(JButton boton){

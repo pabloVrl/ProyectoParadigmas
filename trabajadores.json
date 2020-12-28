@@ -1,7 +1,7 @@
 {"trabajadores": [
    {
       "rut": "123-1",
-      "apellidoPaterno": "asd",
+      "apellidoPaterno": "sa",
       "fechaNacimiento": {
          "mes": "1",
          "dia": "1",
@@ -9,27 +9,27 @@
       },
       "tipoContrato": "Part-time",
       "departamento": "Informatica",
-      "salarioPorHora": 1,
-      "nombre": "asd",
-      "apellidoMaterno": "asd"
+      "salarioPorHora": 10,
+      "nombre": "elvis",
+      "apellidoMaterno": "sa"
    },
    {
-      "rut": "123-1",
-      "apellidoPaterno": "123",
+      "rut": "2002001-3",
+      "apellidoPaterno": "seo",
       "fechaNacimiento": {
          "mes": "1",
          "dia": "1",
          "año": "2020"
       },
-      "tipoContrato": "Part-time",
+      "tipoContrato": "Full-time",
       "departamento": "Informatica",
-      "salarioPorHora": 23123,
-      "nombre": "123",
-      "apellidoMaterno": "123"
+      "salarioPorHora": 4000,
+      "nombre": "elvisito",
+      "apellidoMaterno": "sa"
    },
    {
-      "rut": "77777777-7",
-      "apellidoPaterno": "123123",
+      "rut": "11111-1",
+      "apellidoPaterno": "as",
       "fechaNacimiento": {
          "mes": "1",
          "dia": "1",
@@ -37,8 +37,22 @@
       },
       "tipoContrato": "Part-time",
       "departamento": "Matematicas",
-      "salarioPorHora": 123123,
-      "nombre": "123123",
-      "apellidoMaterno": "1231"
+      "salarioPorHora": 2000,
+      "nombre": "elvis",
+      "apellidoMaterno": "as"
+   },
+   {
+      "rut": "12312-3",
+      "apellidoPaterno": "soas",
+      "fechaNacimiento": {
+         "mes": "1",
+         "dia": "1",
+         "año": "2020"
+      },
+      "tipoContrato": "Full-time",
+      "departamento": "Matematicas",
+      "salarioPorHora": 3000,
+      "nombre": "palo",
+      "apellidoMaterno": "asdf"
    }
 ]}
