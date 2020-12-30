@@ -18,7 +18,7 @@ public class Trabajador {
 	public static JSONArray trabajadores = new JSONArray();
 	public static String[] atributos = {"Rut", "Nombre", "Nacimiento", "Contrato", "Salario", "Departamento"};
 	public static String[] atributosLiquidacion = {"Haberes","        ","Descuentos","        "};
-	public static String[][] matriz = new String[100][6];  
+	public static String[][] matriz = new String[trabajadores.length()][6];  
 	public static String[][] matrizLiquidacion = new String[11][4];
 
 	public Trabajador(Rut Rut, String nombre, String apellidoP, String apellidoM, FechaNacimiento fechaNac, String tipoContrato, float salario, String departamento) {
@@ -34,6 +34,27 @@ public class Trabajador {
 		trabajadores.put(this.toJson());
 		
 		actualizarJson();
+	}
+	
+	public static void modificarTrab(JSONObject trabajador) {
+		for(int i = 0; i < trabajadores.length(); i++) {
+			JSONObject t = trabajadores.getJSONObject(i);
+			if(trabajador == t) {
+				trabajadores.remove(i);
+			}
+		}
+	}
+	
+	public static JSONObject getObjRut(String rut) {
+		JSONObject t = new JSONObject();
+		for(int i = 0; i < trabajadores.length(); i++) {
+			t = trabajadores.getJSONObject(i);
+			if(rut.equals(t.getString("rut"))) {
+				return t;
+			}
+		}
+		
+		return null;
 	}
 	
 	public static void eliminarTrabPorDepa(String nombre) throws IOException {
@@ -57,6 +78,7 @@ public class Trabajador {
 		for(int i = 0; i < trabajCargados.length(); i++) {
 			obj = trabajCargados.getJSONObject(i);
 			if(obj.getString("rut").equals(rut)) {
+				Departamento.eliminarTrabajador(obj.getString("departamento"));
 				trabajadores.remove(i);
 			}
 		}
@@ -64,9 +86,20 @@ public class Trabajador {
 		llenarMatriz();
 	}
 	
+	public static String[] getRuts() {
+		String[] ruts = new String[trabajadores.length()];
+		JSONObject t = new JSONObject();
+		for(int i = 0; i < trabajadores.length(); i++) {
+			t = trabajadores.getJSONObject(i);
+			ruts[i] = t.getString("rut");
+		}
+		
+		return ruts;
+	}
+	
 	public static void llenarMatriz() {
 		JSONObject obj = new JSONObject();
-		matriz = new String[100][6];
+		matriz = new String[trabajadores.length()][6];
 		for(int i = 0; i < trabajadores.length(); i++) {
 			obj = trabajadores.getJSONObject(i);
 			matriz[i][0] = obj.getString("rut");
@@ -79,7 +112,7 @@ public class Trabajador {
 	}
 	
 	
-	public static void llenarMatrizLiquidacion(String nombre) {
+	public static void llenarMatrizLiquidacion(String rut) {
 		
 		matrizLiquidacion = new String [11][4];
 		JSONObject trabajador = new JSONObject();
@@ -89,7 +122,7 @@ public class Trabajador {
 		for(int i=0;i<trabajadores.length();i++) {
 			trabajador = trabajadores.getJSONObject(i);
 			
-			 if( trabajador.getString("nombre").equals(nombre)) {
+			 if( trabajador.getString("rut").equals(rut)) {
 				horario = trabajador.getString("tipoContrato");
 				sueldo = trabajador.getInt("salarioPorHora");
 				

@@ -8,6 +8,9 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class TrabajadoresUI extends JPanel{
 	JLabel bienvenida;
 	JButton ingresar;
@@ -38,21 +41,13 @@ public class TrabajadoresUI extends JPanel{
 		JButton ingresar = new JButton("INGRESAR TRABAJADOR");
 	    ingresar.setBounds(60, 140, 500, 50);
 		
-		JButton eliminar = new JButton("ELIMINAR TRABAJADOR");
+		JButton eliminar = new JButton("OPERACIONES CON TRABAJADORES");
 		eliminar.setBounds(60, 200, 500, 50);
 		
-		JButton modificar = new JButton("MODIFICAR TRABAJADOR");
-		modificar.setBounds(60, 260, 500, 50);
+
+		JButton botones[] = {ingresar, eliminar};
 		
-		JButton consultar = new JButton("CONSULTAR DATOS DEL TRABAJADOR");
-		consultar.setBounds(60, 320, 500, 50);
-		
-		JButton generarLiquidacion = new JButton("GENERAR LIQUIDACION");
-		generarLiquidacion.setBounds(60, 380, 500, 50);
-		
-		JButton botones[] = {ingresar, eliminar, modificar,consultar ,generarLiquidacion};
-		
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<2;i++) {
 			
 			botones[i].setBackground(new Color(82, 82, 78));
 			botones[i].setFocusPainted(false);
@@ -80,44 +75,10 @@ public class TrabajadoresUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				eliminar();
+				operaciones();
 			}
 			
 		});
-		
-		modificar .addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				modificar ();
-			}
-			
-		});
-		
-		consultar .addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				consultar ();
-			}
-			
-		});
-		
-		generarLiquidacion .addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				generarLiquidacion ();
-			}
-			
-		});
-		repaint();
-		revalidate();
-		
-		//----------------------------------------//
-		
 	}
 	//FUNCIÓN QUE AGREGA UN TRABAJADOR AL SISTEMA
 	public void ingresar() {
@@ -166,7 +127,7 @@ public class TrabajadoresUI extends JPanel{
 			textContrato.setBounds(75, 240, 200, 25);
 			textContrato.setFont(new Font("",Font.BOLD,16));
 
-			JComboBox tipoContrato = new JComboBox(Trabajador.contratos);
+			JComboBox<String> tipoContrato = new JComboBox<String>(Trabajador.contratos);
 			tipoContrato.setBounds(240, 240, 250, 25);
 
 			JLabel textDepa = new JLabel("Departamento:");
@@ -257,9 +218,9 @@ public class TrabajadoresUI extends JPanel{
 					String contrato = (String) tipoContrato.getSelectedItem();
 					int salario = Integer.parseInt(fieldSalario.getText());
 					String depa = (String) departamento.getSelectedItem();
-					Trabajador t = new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
+					new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
 					Departamento.addTrabajador(depa);
-					JOptionPane.showMessageDialog(null, "Usuario creado con éxito");
+					JOptionPane.showMessageDialog(null, "Usuario creado!");
 					ingresar();
 				}
 
@@ -285,9 +246,9 @@ public class TrabajadoresUI extends JPanel{
 		}
 	}
 	//FUNCIÓN QUE ELIMINA UN TRABAJADOR DEL SISTEMA
-	public void eliminar() {
+	public void operaciones() {
 		removeAll();
-		JLabel textTitulo = new JLabel("ELIMINAR TRABAJADOR");
+		JLabel textTitulo = new JLabel("Ingrese el rut de un trabajador");
 		textTitulo.setBounds(115, 45, 500, 50);
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
@@ -306,16 +267,42 @@ public class TrabajadoresUI extends JPanel{
 		fieldRutVerif.setBounds(470, 100, 20, 25);
 		
 		JButton delete = new JButton("ELIMINAR");
-		delete.setBounds(250, 400, 100, 40);
+		delete.setBounds(70, 395, 100, 40);
+		botonOpTrab(delete);
+		
+		JButton modificar = new JButton("MODIFICAR");
+		modificar.setBounds(190, 395, 100, 40);
+		botonOpTrab(modificar);
+		
+		JButton consultar = new JButton("DATOS");
+		consultar.setBounds(310, 395, 100, 40);
+		botonOpTrab(consultar);
+		
+		JButton liquidacion = new JButton("LIQUIDACIÓN");
+		liquidacion.setBounds(430, 395, 110, 40);
+		botonOpTrab(liquidacion);
 		
 		Trabajador.llenarMatriz();
 		
-		JTable tabla = new JTable(Trabajador.matriz, Trabajador.atributos);
-		tabla.setEnabled(false);
+		TablaDatos datos = new TablaDatos(35, 150, 550, 225);
 		
-		JScrollPane sp = new JScrollPane(tabla);
-		sp.setBounds(35, 150, 550, 225);
-		botonOpTrab(delete);
+		liquidacion.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MostrarLiquidacion(fieldRut.getText()+"-"+fieldRutVerif.getText());
+			}
+			
+		});
+		
+		consultar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mostrarDatos(fieldRut.getText()+"-"+fieldRutVerif.getText());
+			}
+			
+		});
 		
 		delete.addActionListener(new ActionListener() {
 
@@ -328,8 +315,21 @@ public class TrabajadoresUI extends JPanel{
 					e1.printStackTrace();
 				}
 				
-				eliminar();
+				operaciones();
 				
+			}
+			
+		});
+		
+		modificar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String rut = fieldRut.getText()+"-"+fieldRutVerif.getText();
+				for(String r: Trabajador.getRuts()) {
+					if(rut.equals(r))
+						modificar(rut);
+				}
 			}
 			
 		});
@@ -369,10 +369,11 @@ public class TrabajadoresUI extends JPanel{
 	    });
 		
 		//-----------------------------------------------------------//
-		add(sp);
-		//this.add(tabla);
+		add(datos.getSP());
 		repaint();
-		validate();
+		add(liquidacion);
+		add(consultar);
+		add(modificar);
 		add(delete);
 		add(textTitulo);
 		add(textRut); add(fieldRut); add(fieldRutVerif); add(textGuion);
@@ -381,9 +382,242 @@ public class TrabajadoresUI extends JPanel{
 		validate();
 		
 	}
-	//FUNCIÓN QUE MODIFICA INFORMACIÓN DE UN TRABAJADOR
-	public void modificar() {
+	
+	private void mostrarDatos(String rut) {
+		removeAll();
+
+		JSONObject t = Trabajador.getObjRut(rut);
+		JSONObject nac = t.getJSONObject("fechaNacimiento");
 		
+		JLabel nombre, r, contr, depto, naci, sal;
+		
+		nombre = new JLabel("Nombre: " + t.getString("nombre")+ " " + t.getString("apellidoPaterno") + " " + t.getString("apellidoMaterno"));
+		nombre.setBounds(30, 30, 500, 25);
+		nombre.setFont(new Font("",Font.BOLD,16));
+		
+		r = new JLabel("RUT: " + rut);
+		r.setBounds(30, 60, 500, 25);
+		r.setFont(new Font("",Font.BOLD,16));
+		
+		contr = new JLabel("Contrato: " + t.getString("tipoContrato"));
+		contr.setBounds(30, 90, 500, 25);
+		contr.setFont(new Font("",Font.BOLD,16));
+		
+		depto = new JLabel("Departamento: " + t.getString("departamento"));
+		depto.setBounds(30, 120, 500, 25);
+		depto.setFont(new Font("",Font.BOLD,16));
+		
+		naci = new JLabel("Fecha Nacimiento: " + nac.getString("dia")+"/"+nac.getString("mes")+"/"+nac.getString("año"));
+		naci.setBounds(30, 150, 500, 25);
+		naci.setFont(new Font("",Font.BOLD,16));
+		
+		sal = new JLabel("Salario por hora: " + String.valueOf(t.getInt("salarioPorHora")));
+		sal.setBounds(30, 180, 500, 25);
+		sal.setFont(new Font("",Font.BOLD,16));
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(30, 250, 100, 25);
+		botonOpTrab(volver);
+		
+		volver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				operaciones();
+			}
+			
+		});
+		
+		add(volver);
+		add(sal);
+		add(naci);
+		add(depto);
+		add(contr);
+		add(r);
+		add(nombre);
+		
+		repaint();
+	}
+	//FUNCIÓN QUE MODIFICA INFORMACIÓN DE UN TRABAJADOR
+	private void modificar(String rut) {
+		removeAll();
+		
+		JSONObject t = Trabajador.getObjRut(rut);
+		
+		JLabel textTitulo = new JLabel("MODIFICAR TRABAJADOR");
+		textTitulo.setBounds(115, 45, 500, 50);
+		textTitulo.setFont(new Font("",Font.BOLD,29));
+
+		JLabel textNombre = new JLabel("Nombre:");
+		textNombre.setBounds(90, 120, 100, 25);
+		textNombre.setFont(new Font("",Font.BOLD,16));
+
+		JTextField fieldNombre = new JTextField(t.getString("nombre"));
+		fieldNombre.setBounds(240, 120, 250, 25);
+
+		JLabel textApellidoP = new JLabel("Apellido Paterno:");
+		textApellidoP.setBounds(60, 150, 200, 25);
+		textApellidoP.setFont(new Font("",Font.BOLD,16));
+
+		JTextField fieldApellidoP = new JTextField(t.getString("apellidoPaterno"));
+		fieldApellidoP.setBounds(240, 150, 250, 25);
+
+		JLabel textApellidoM = new JLabel("Apellido Materno:");
+		textApellidoM.setBounds(60, 180, 200, 25);
+		textApellidoM.setFont(new Font("",Font.BOLD,16));
+
+		JTextField fieldApellidoM = new JTextField(t.getString("apellidoMaterno"));
+		fieldApellidoM.setBounds(240, 180, 250, 25);
+
+		JLabel textRut = new JLabel("RUT:");
+		textRut.setBounds(110, 210, 200, 25);
+		textRut.setFont(new Font("",Font.BOLD,16));
+
+		JTextField fieldRut = new JTextField(t.getString("rut").split("-")[0]);
+		fieldRut.setBounds(240, 210, 210, 25);
+
+		JLabel textGuion = new JLabel("-");
+		textGuion.setBounds(455, 205, 200, 25);
+		textGuion.setFont(new Font("",Font.BOLD,28));
+
+		JTextField fieldRutVerif = new JTextField(t.getString("rut").split("-")[1]);
+		fieldRutVerif.setBounds(470, 210, 20, 25);
+
+		JLabel textContrato = new JLabel("Tipo Contrato:");
+		textContrato.setBounds(75, 240, 200, 25);
+		textContrato.setFont(new Font("",Font.BOLD,16));
+
+		JComboBox<String> tipoContrato = new JComboBox<String>(Trabajador.contratos);
+		tipoContrato.setBounds(240, 240, 250, 25);
+
+		JLabel textDepa = new JLabel("Departamento:");
+		textDepa.setBounds(75, 270, 200, 25);
+		textDepa.setFont(new Font("",Font.BOLD,16));
+
+		JComboBox departamento = new JComboBox(Departamento.getNombresDeptos().toArray());
+		departamento.setBounds(240, 270, 250, 25);
+		for(int i = 0; i < Departamento.departamentos.length(); i++) {
+			String actual = (String) departamento.getItemAt(i);
+			if(actual.equals(t.getString("departamento"))) {
+				departamento.setSelectedIndex(i);
+				break;
+			}
+		}
+
+		JLabel textNacimiento = new JLabel("Nacimiento:");
+		textNacimiento.setBounds(80, 300, 200, 25);
+		textNacimiento.setFont(new Font("",Font.BOLD,16));
+		
+		JSONObject nac = t.getJSONObject("fechaNacimiento");
+	
+		JComboBox dia = new JComboBox(FechaNacimiento.arrDia.toArray());
+		dia.setBounds(240, 300, 50, 25);
+		dia.setSelectedIndex(Integer.parseInt(nac.getString("dia")) - 1);
+
+		JComboBox mes = new JComboBox(FechaNacimiento.arrMes.toArray());
+		mes.setBounds(300, 300, 50, 25);
+		mes.setSelectedIndex(Integer.parseInt(nac.getString("mes")) - 1);
+		
+
+		JComboBox anio = new JComboBox(FechaNacimiento.arrAnio.toArray());
+		anio.setBounds(360, 300, 100, 25);
+		anio.setSelectedIndex(2020 - Integer.parseInt(nac.getString("año")));
+
+		JLabel textSalario = new JLabel("Salario por hora:");
+		textSalario.setBounds(60, 330, 200, 25);
+		textSalario.setFont(new Font("",Font.BOLD,16));
+
+		JTextField fieldSalario = new JTextField(String.valueOf(t.getInt("salarioPorHora")));
+		fieldSalario.setBounds(240, 330, 250, 25);
+
+		JButton modificar = new JButton("MODIFICAR");
+		modificar.setBounds(250, 380, 100, 40);
+		
+		botonOpTrab(modificar);
+		
+		modificar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Trabajador.eliminarTrabajador(t.getString("rut"));
+				} catch (JSONException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Rut rut = new Rut(fieldRut.getText(), fieldRutVerif.getText());
+				String nombre = fieldNombre.getText();
+				String apellidoP = fieldApellidoP.getText();
+				String apellidoM = fieldApellidoM.getText();
+				String diaNac = (String) dia.getSelectedItem();
+				String mesNac = (String) mes.getSelectedItem();
+				String anioNac = (String) anio.getSelectedItem();
+				FechaNacimiento fechaNac = new FechaNacimiento(diaNac, mesNac, anioNac);
+				String contrato = (String) tipoContrato.getSelectedItem();
+				int salario = Integer.parseInt(fieldSalario.getText());
+				String depa = (String) departamento.getSelectedItem();
+				new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
+				Departamento.addTrabajador(depa);
+				JOptionPane.showMessageDialog(null, "Usuario actualizado!");
+				operaciones();
+			}
+			
+		});
+
+		//VALIDACIÓN SALARIO
+		fieldSalario.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ke) {
+				validacionDeNumeros(fieldSalario,ke);
+			}
+		});
+
+		//VALIDACIÓN RUT
+		fieldRut.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ke) {
+				validacionDeNumeros(fieldRut,ke);
+			}
+		});
+
+		fieldRutVerif.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ke) {
+				String value = fieldRutVerif.getText();
+				int l = value.length();
+				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == 'K' || ke.getKeyChar() == 'k' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+					fieldRutVerif.setEditable(true);
+				} else {
+					fieldRutVerif.setEditable(false);
+				}
+			}
+		});
+
+		fieldRutVerif.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				validadorRutVerificador(fieldRutVerif, 1, e);
+			}
+		});
+
+
+		fieldRut.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				validadorRutVerificador(fieldRut, 8, e);
+			}
+		});
+		
+		add(textTitulo);
+		add(textNombre); add(fieldNombre);
+		add(textApellidoM); add(fieldApellidoM);
+		add(textApellidoP); add(fieldApellidoP);
+		add(modificar);
+		add(textContrato); add(tipoContrato);
+		add(textRut); add(fieldRut); 
+		add(fieldRutVerif); add(textGuion);
+		add(textDepa); add(departamento);
+		add(textNacimiento); add(dia); add(mes); add(anio);
+		add(textSalario); add(fieldSalario);
+		revalidate();
+		repaint();
 	}
 	//FUNCIÓN QUE PEGUNTA EL NOMBRE DEL TRABAJADOR PARA BUSCAR SUS DATOS		
 	public void consultar() {
@@ -396,7 +630,7 @@ public class TrabajadoresUI extends JPanel{
 		nombres.setBounds(40, 200, 200, 25);
 		nombres.setFont(new Font("",Font.BOLD,22));
 		
-		JComboBox trabajadores = new JComboBox();
+		JComboBox<String> trabajadores = new JComboBox<String>();
 		trabajadores.setBounds(240, 200, 250, 25);
 		
 		JButton consultar = new JButton("CONSULTAR");
@@ -424,6 +658,8 @@ public class TrabajadoresUI extends JPanel{
 	//FUNCIÓN QUE MUESTRA DATOS DE UN TRABAJADOR
 	public void MostarDatos() {
 		removeAll();
+		
+		
 		JLabel textTitulo = new JLabel("DATOS DEL TRABAJADOR");
 		textTitulo.setBounds(125, 45, 600, 50);
 		textTitulo.setFont(new Font("",Font.BOLD,29));
@@ -504,54 +740,16 @@ public class TrabajadoresUI extends JPanel{
 		repaint();
 		validate();
 	}
-	//FUNCIÓN QUE GENERA LA LIQUIDACIÓN DE SUELDO DE UN TRABAJADOR
-	public void generarLiquidacion (){
-		
-		removeAll();
-		JLabel textTitulo = new JLabel("GENERAR LIQUIDACION DE SUELDO");
-		textTitulo.setBounds(50, 45, 600, 50);
-		textTitulo.setFont(new Font("",Font.BOLD,29));
-		
-		
-		JLabel nombre = new JLabel("Nombre: ");
-		nombre.setBounds(40, 200, 200, 25);
-		nombre.setFont(new Font("",Font.BOLD,25));
-		
-		JComboBox trabajadores = new JComboBox(Trabajador.getNombresTrabajadores().toArray());
-		trabajadores.setBounds(240, 200, 250, 25);
-		
-		JButton liquidacion = new JButton("GENERAR");
-		liquidacion.setBounds(240, 350, 120, 45);
-		
-		botonOpTrab(liquidacion);
-		
-		liquidacion.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			MostrarLiquidacion((String)trabajadores.getSelectedItem());	
-				
-			}
-						
-		});
-		add(textTitulo);
-		add(nombre);
-		add(trabajadores);
-		add(liquidacion);
-		
-		repaint();
-		validate();
-	}
+	
 	//FUNCIÓN QUE MUESTA LOS DATOS DE LA LIQUIDACIÓN
-	public void MostrarLiquidacion(String nombre) {
+	public void MostrarLiquidacion(String rut) {
 		
 		removeAll();
 		JLabel textTitulo = new JLabel("LIQUIDACION DE SUELDO");
 		textTitulo.setBounds(125, 45, 600, 50);
 		textTitulo.setFont(new Font("",Font.BOLD,29));
 		
-		Trabajador.llenarMatrizLiquidacion(nombre);
+		Trabajador.llenarMatrizLiquidacion(rut);
 		
 		JTable tabla = new JTable(Trabajador.matrizLiquidacion,Trabajador.atributosLiquidacion);
 		tabla.setBounds(110, 200, 500, 500);
@@ -572,7 +770,7 @@ public class TrabajadoresUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				generarLiquidacion();
+				operaciones();
 				
 			}
 				
@@ -591,7 +789,7 @@ public class TrabajadoresUI extends JPanel{
 		
 		boton.setBackground(new Color(82, 82, 78));
 		boton.setFocusPainted(false);
-		boton.setFont(new Font("",Font.BOLD,13));
+		boton.setFont(new Font("",Font.BOLD,12));
 		boton.setForeground(Color.white);
 		
 	}

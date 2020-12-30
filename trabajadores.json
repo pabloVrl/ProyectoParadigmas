@@ -1,1 +1,14 @@
-{"trabajadores": []}
+{"trabajadores": [{
+   "rut": "20487087-k",
+   "apellidoPaterno": "Villa",
+   "fechaNacimiento": {
+      "mes": "5",
+      "dia": "13",
+      "año": "2000"
+   },
+   "tipoContrato": "Part-time",
+   "departamento": "Informatica",
+   "salarioPorHora": 15000,
+   "nombre": "Pablo",
+   "apellidoMaterno": "Anti"
+}]}
