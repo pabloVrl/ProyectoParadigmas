@@ -290,7 +290,18 @@ public class TrabajadoresUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MostrarLiquidacion(fieldRut.getText()+"-"+fieldRutVerif.getText());
+				boolean entro = false;
+				String rut = fieldRut.getText()+"-"+fieldRutVerif.getText();
+				for(String r: Trabajador.getRuts()) {
+					if(rut.equals(r)) {
+						MostrarLiquidacion(rut);
+						entro = true;
+					}
+				}
+
+				if(!entro) {
+					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
+				}
 			}
 			
 		});
@@ -299,7 +310,18 @@ public class TrabajadoresUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mostrarDatos(fieldRut.getText()+"-"+fieldRutVerif.getText());
+				boolean entro = false;
+				String rut = fieldRut.getText()+"-"+fieldRutVerif.getText();
+				for(String r: Trabajador.getRuts()) {
+					if(rut.equals(r)) {
+						mostrarDatos(rut);
+						entro = true;
+					}
+				}
+
+				if(!entro) {
+					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
+				}
 			}
 			
 		});
@@ -308,11 +330,22 @@ public class TrabajadoresUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Trabajador.eliminarTrabajador(fieldRut.getText()+"-"+fieldRutVerif.getText());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				boolean entro = false;
+				String rut = fieldRut.getText()+"-"+fieldRutVerif.getText();
+				for(String r: Trabajador.getRuts()) {
+					if(rut.equals(r)) {
+						try {
+							Trabajador.eliminarTrabajador(rut);	
+							entro = true;
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+
+				if(!entro) {
+					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
 				}
 				
 				operaciones();
@@ -325,13 +358,19 @@ public class TrabajadoresUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean entro = false;
 				String rut = fieldRut.getText()+"-"+fieldRutVerif.getText();
 				for(String r: Trabajador.getRuts()) {
-					if(rut.equals(r))
+					if(rut.equals(r)) {
 						modificar(rut);
+						entro = true;
+					}
+				}
+
+				if(!entro) {
+					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
 				}
 			}
-			
 		});
 		
 		//VALIDACION RUT	

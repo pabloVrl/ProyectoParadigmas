@@ -1,12 +1,5 @@
-{"departamentos": [
-   {
-      "numeroTrabajadores": 1,
-      "ID": 2,
-      "nombre": "Informatica"
-   },
-   {
-      "numeroTrabajadores": 0,
-      "ID": 3,
-      "nombre": "Matematica"
-   }
-]}
+{"departamentos": [{
+   "numeroTrabajadores": 0,
+   "ID": 1,
+   "nombre": "asdasd"
+}]}
