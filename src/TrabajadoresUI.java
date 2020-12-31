@@ -428,35 +428,44 @@ public class TrabajadoresUI extends JPanel{
 		JSONObject t = Trabajador.getObjRut(rut);
 		JSONObject nac = t.getJSONObject("fechaNacimiento");
 		
-		JLabel nombre, r, contr, depto, naci, sal;
+		JLabel nombre, r, contr, depto, naci, sal,titulo;
 		
-		nombre = new JLabel("Nombre: " + t.getString("nombre")+ " " + t.getString("apellidoPaterno") + " " + t.getString("apellidoMaterno"));
-		nombre.setBounds(30, 30, 500, 25);
-		nombre.setFont(new Font("",Font.BOLD,16));
+		  titulo = new JLabel("DATOS");
+		  titulo.setBounds(260, 40, 200, 40);
+		  titulo.setFont(new Font("",Font.BOLD,29));
 		
-		r = new JLabel("RUT: " + rut);
-		r.setBounds(30, 60, 500, 25);
-		r.setFont(new Font("",Font.BOLD,16));
+		  nombre = new JLabel("Nombre:                        "+ t.getString("nombre")+ " " + t.getString("apellidoPaterno") + " " + t.getString("apellidoMaterno"));
+		  nombre.setBounds(150, 100, 500, 25);
+		  nombre.setFont(new Font("",Font.BOLD,20));
 		
-		contr = new JLabel("Contrato: " + t.getString("tipoContrato"));
-		contr.setBounds(30, 90, 500, 25);
-		contr.setFont(new Font("",Font.BOLD,16));
+		  r = new JLabel("RUT:                            "+rut);
+		  r.setBounds(160, 140, 500, 25);
+		  r.setFont(new Font("",Font.BOLD,20));
 		
-		depto = new JLabel("Departamento: " + t.getString("departamento"));
-		depto.setBounds(30, 120, 500, 25);
-		depto.setFont(new Font("",Font.BOLD,16));
+		  contr = new JLabel("Tipo de contrato:                   "+ t.getString("tipoContrato"));
+		  contr.setBounds(100, 180, 500, 25);
+		  contr.setFont(new Font("",Font.BOLD,20));
 		
-		naci = new JLabel("Fecha Nacimiento: " + nac.getString("dia")+"/"+nac.getString("mes")+"/"+nac.getString("año"));
-		naci.setBounds(30, 150, 500, 25);
-		naci.setFont(new Font("",Font.BOLD,16));
-		
-		sal = new JLabel("Salario por hora: " + String.valueOf(t.getInt("salarioPorHora")));
-		sal.setBounds(30, 180, 500, 25);
-		sal.setFont(new Font("",Font.BOLD,16));
-		
-		JButton volver = new JButton("Volver");
-		volver.setBounds(30, 250, 100, 25);
-		botonOpTrab(volver);
+		 
+		  
+		  depto = new JLabel("Departamento:                     "+t.getString("departamento"));
+		  depto.setBounds(110, 220, 500, 25);
+		  depto.setFont(new Font("",Font.BOLD,20));
+		  
+		  		
+		  naci = new JLabel("Fecha Nacimiento:                 "+nac.getString("dia")+"/"+nac.getString("mes")+"/"+nac.getString("año") );
+		  naci.setBounds(100, 260, 500, 25);
+		  naci.setFont(new Font("",Font.BOLD,20));
+		  
+		  sal = new JLabel("Salario por hora:                  "+ String.valueOf(t.getInt("salarioPorHora")));
+		  sal.setBounds(110, 300, 500, 25);
+		  sal.setFont(new Font("",Font.BOLD,20));
+		  
+		  
+		  JButton volver = new JButton("VOLVER");
+		  volver.setBounds(200, 360, 200, 50);
+		  
+		  botonOpTrab(volver);
 		
 		volver.addActionListener(new ActionListener() {
 
@@ -470,6 +479,7 @@ public class TrabajadoresUI extends JPanel{
 		add(volver);
 		add(sal);
 		add(naci);
+		add(titulo);
 		add(depto);
 		add(contr);
 		add(r);
@@ -581,7 +591,7 @@ public class TrabajadoresUI extends JPanel{
 				try {
 					Trabajador.eliminarTrabajador(t.getString("rut"));
 				} catch (JSONException | IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 				Rut rut = new Rut(fieldRut.getText(), fieldRutVerif.getText());
@@ -657,127 +667,6 @@ public class TrabajadoresUI extends JPanel{
 		add(textSalario); add(fieldSalario);
 		revalidate();
 		repaint();
-	}
-	//FUNCIÓN QUE PEGUNTA EL NOMBRE DEL TRABAJADOR PARA BUSCAR SUS DATOS		
-	public void consultar() {
-		removeAll();
-		JLabel textTitulo = new JLabel("CONSULTAR DATOS TRABAJADORES");
-		textTitulo.setBounds(40, 45, 600, 50);
-		textTitulo.setFont(new Font("",Font.BOLD,29));
-		
-		JLabel nombres = new JLabel("Nombre: ");
-		nombres.setBounds(40, 200, 200, 25);
-		nombres.setFont(new Font("",Font.BOLD,22));
-		
-		JComboBox<String> trabajadores = new JComboBox<String>();
-		trabajadores.setBounds(240, 200, 250, 25);
-		
-		JButton consultar = new JButton("CONSULTAR");
-		consultar.setBounds(240, 350, 120, 45);
-		
-		botonOpTrab(consultar);
-		
-		consultar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MostarDatos();	
-			}	
-		});
-		
-		add(textTitulo);
-		add(nombres);
-		add(trabajadores);
-		add(consultar);
-		
-		repaint();
-		validate();
-		
-	}
-	//FUNCIÓN QUE MUESTRA DATOS DE UN TRABAJADOR
-	public void MostarDatos() {
-		removeAll();
-		
-		
-		JLabel textTitulo = new JLabel("DATOS DEL TRABAJADOR");
-		textTitulo.setBounds(125, 45, 600, 50);
-		textTitulo.setFont(new Font("",Font.BOLD,29));
-		
-		JLabel nombres = new JLabel("Nombre: ");
-		nombres.setBounds(160, 140, 100, 25);
-		nombres.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel nombreTrabajador = new JLabel("------------------");
-		nombreTrabajador.setBounds(350, 140, 250, 25);
-		nombreTrabajador.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel apellidoP = new JLabel("Apellido Paterno: ");
-		apellidoP.setBounds(120, 180, 200, 25);
-		apellidoP.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel apellidoPTrabajador = new JLabel("------------------");
-		apellidoPTrabajador.setBounds(350, 180, 250, 25);
-		apellidoPTrabajador.setFont(new Font("",Font.BOLD,22));
-		
-		
-		JLabel apellidoM = new JLabel("Apellido Materno: ");
-		apellidoM.setBounds(120, 220, 200, 25);
-		apellidoM.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel apellidoMTrabajador = new JLabel("------------------");
-		apellidoMTrabajador.setBounds(350, 220, 250, 25);
-		apellidoMTrabajador.setFont(new Font("",Font.BOLD,22));
-		
-		
-		JLabel edad = new JLabel("Edad: ");
-		edad.setBounds(170, 260, 100, 25);
-		edad.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel edadTrabajador = new JLabel("------------------");
-		edadTrabajador.setBounds(350, 260, 210, 25);
-		edadTrabajador.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel tipoContrato = new JLabel("Tipo de contrato: ");
-		tipoContrato.setBounds(120, 300, 200, 25);
-		tipoContrato.setFont(new Font("",Font.BOLD,22));
-		
-		JLabel tipoContratoTrabajador = new JLabel("------------------");
-		tipoContratoTrabajador.setBounds(350, 300, 210, 25);
-		tipoContratoTrabajador.setFont(new Font("",Font.BOLD,22));
-		
-	
-		JButton atras = new JButton("VOLVER");
-		atras.setBounds(240, 350, 120, 45);
-		
-		botonOpTrab(atras);
-		
-		atras.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				consultar();
-			}
-				
-		});
-		
-		
-		
-		add(textTitulo);
-		add(tipoContratoTrabajador);
-		add(nombreTrabajador);
-		add(apellidoPTrabajador);
-		add(apellidoMTrabajador);
-		add(edadTrabajador);
-		add(nombres);
-		add(apellidoM);
-		add(apellidoP);
-		add(edad);
-		add(tipoContrato);
-		add(atras);
-		
-		repaint();
-		validate();
 	}
 	
 	//FUNCIÓN QUE MUESTA LOS DATOS DE LA LIQUIDACIÓN

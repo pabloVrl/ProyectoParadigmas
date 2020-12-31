@@ -152,26 +152,26 @@ public class Trabajador {
 		
 		int aux;
 		matrizLiquidacion[0][0] = "Sueldo Base"; 
-		matrizLiquidacion[0][1] = "           "+sueldo;
+		matrizLiquidacion[0][1] = "               "+sueldo;
 		matrizLiquidacion[1][0] = "Asignación Movilización";
-		matrizLiquidacion[1][1] = "   "+movilizacion;	
+		matrizLiquidacion[1][1] = "               "+movilizacion;	
 		matrizLiquidacion[2][0] = "Asignación Colación";
-		matrizLiquidacion[2][1] = ""+colacion;
+		matrizLiquidacion[2][1] = "               "+colacion;
 		matrizLiquidacion[7][0] = "Total Haberes";
-		matrizLiquidacion[7][1] = ""+(sueldo+colacion+movilizacion);
+		matrizLiquidacion[7][1] = "               "+(sueldo+colacion+movilizacion);
 		
 		matrizLiquidacion[0][2] = "Sistema de prevension";
 		aux=(int) (sueldo*0.07);
-		matrizLiquidacion[0][3] = ""+aux;
+		matrizLiquidacion[0][3] = "               "+aux;
 		matrizLiquidacion[1][2] = "AFP";
 		aux=(int) (sueldo*0.1);
-	    matrizLiquidacion[1][3] = " "+aux;
+	    matrizLiquidacion[1][3] = "               "+aux;
 	    matrizLiquidacion[7][2] = "Total Descuentos";
 	    aux=(int) ((sueldo*0.07)+(sueldo*0.1));
-	    matrizLiquidacion[7][3] = ""+aux;
+	    matrizLiquidacion[7][3] = "              - "+aux;
 	    
 	    matrizLiquidacion[10][2] = "Alcance Liquido";
-	    matrizLiquidacion[10][3] = ""+((sueldo+colacion+movilizacion)-(aux));
+	    matrizLiquidacion[10][3] = "               "+((sueldo+colacion+movilizacion)-(aux));
 		
 		
 	}
