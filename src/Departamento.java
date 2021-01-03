@@ -19,6 +19,7 @@ public class Departamento {
 		
 		if(departamentos.isEmpty()) {
 			ID = 1;
+			numeroTrabajadores = 0;
 		}
 		else {
 			JSONObject depto = departamentos.getJSONObject(departamentos.length()-1);
@@ -134,6 +135,7 @@ public class Departamento {
 		 for(int i = 0; i < departamentos.length(); i++) {
 			 obj = departamentos.getJSONObject(i);
 			 if(obj.getString("nombre").equals(nombre)) {
+				 
 				 return String.valueOf(obj.getInt("numeroTrabajadores"));
 			 }
 		 }

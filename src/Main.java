@@ -1,3 +1,5 @@
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
 
 import javax.swing.*;
@@ -22,6 +24,8 @@ public class Main {
 		v.setLayout(null);
 		v.setSize(800, 500);
 		v.setTitle("La Choza de Concreto");
+		Image icon = Toolkit.getDefaultToolkit().getImage("./res/img/choza.png");    
+		v.setIconImage(icon);    
 		v.setResizable(false);
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

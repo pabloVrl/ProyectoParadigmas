@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.net.URL;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 import org.json.JSONException;
@@ -18,6 +22,7 @@ public class TrabajadoresUI extends JPanel{
 	JButton eliminar;
 	JButton consultar;
 	JButton generarLiquidacion;
+	URL sonido,sonido2;
 	
 	private final Color fondo = new Color(0xe9e9e5);
 	
@@ -39,19 +44,21 @@ public class TrabajadoresUI extends JPanel{
 		bienvenida.setFont(new Font("", Font.BOLD,29));
 		
 		JButton ingresar = new JButton("INGRESAR TRABAJADOR");
-	    ingresar.setBounds(60, 140, 500, 50);
+	    ingresar.setBounds(60, 200, 500, 50);
+	    hoverAction(ingresar);
 		
 		JButton eliminar = new JButton("OPERACIONES CON TRABAJADORES");
-		eliminar.setBounds(60, 200, 500, 50);
+		eliminar.setBounds(60, 260, 500, 50);
 		
-
+		hoverAction(eliminar);
+	
 		JButton botones[] = {ingresar, eliminar};
 		
 		for(int i=0;i<2;i++) {
 			
 			botones[i].setBackground(new Color(82, 82, 78));
 			botones[i].setFocusPainted(false);
-			botones[i].setFont(new Font("",Font.BOLD,20));
+			botones[i].setFont(new Font("",Font.BOLD,16));
 			botones[i].setForeground(Color.white);
 			add(botones[i]);
 		
@@ -159,6 +166,7 @@ public class TrabajadoresUI extends JPanel{
 
 			JButton agregar = new JButton("AGREGAR");
 			agregar.setBounds(250, 380, 100, 40);
+			agregar.setFont(new Font("",Font.BOLD,16));
 
 			//VALIDACIÓN SALARIO
 			fieldSalario.addKeyListener(new KeyAdapter() {
@@ -200,28 +208,61 @@ public class TrabajadoresUI extends JPanel{
 					validadorRutVerificador(fieldRut, 8, e);
 				}
 			});
+			
+			
 			//------------------------------------------------------------//
 			botonOpTrab(agregar);
+			hoverAction(agregar);
 
 			agregar.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Rut rut = new Rut(fieldRut.getText(), fieldRutVerif.getText());
-					String nombre = fieldNombre.getText();
-					String apellidoP = fieldApellidoP.getText();
-					String apellidoM = fieldApellidoM.getText();
-					String diaNac = (String) dia.getSelectedItem();
-					String mesNac = (String) mes.getSelectedItem();
-					String anioNac = (String) anio.getSelectedItem();
-					FechaNacimiento fechaNac = new FechaNacimiento(diaNac, mesNac, anioNac);
-					String contrato = (String) tipoContrato.getSelectedItem();
-					int salario = Integer.parseInt(fieldSalario.getText());
-					String depa = (String) departamento.getSelectedItem();
-					new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
-					Departamento.addTrabajador(depa);
-					JOptionPane.showMessageDialog(null, "Usuario creado!");
-					ingresar();
+					String nom = fieldNombre.getText().trim();
+					
+					if(!validacionLetras(nom)||nom.equals("")) {
+						sonidoerror();
+						JOptionPane.showMessageDialog(null, "Introduzca un nombre valido");
+					}else {
+                          nom = fieldApellidoP.getText().trim();
+                          
+						if(!validacionLetras(nom)||nom.equals("")) {
+							sonidoerror();
+							JOptionPane.showMessageDialog(null, "Introduzca un apellido paterno que sea valido");
+						}else {
+							nom = fieldApellidoM.getText().trim();
+							
+							if(!validacionLetras(nom)||nom.equals("")) {
+								sonidoerror();
+								JOptionPane.showMessageDialog(null, "Introduzca un apellido materno que sea valido");
+							}else {
+								
+								Rut rut = new Rut(fieldRut.getText(), fieldRutVerif.getText());
+								String nombre = fieldNombre.getText();
+								String apellidoP = fieldApellidoP.getText();
+								String apellidoM = fieldApellidoM.getText();
+								String diaNac = (String) dia.getSelectedItem();
+								String mesNac = (String) mes.getSelectedItem();
+								String anioNac = (String) anio.getSelectedItem();
+								FechaNacimiento fechaNac = new FechaNacimiento(diaNac, mesNac, anioNac);
+								String contrato = (String) tipoContrato.getSelectedItem();
+								int salario = Integer.parseInt(fieldSalario.getText());
+								String depa = (String) departamento.getSelectedItem();
+								new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
+								Departamento.addTrabajador(depa);
+								sonidoVerificador();
+								JOptionPane.showMessageDialog(null, "Usuario creado!");
+								ingresar();	
+							}
+						}
+					}
+						
+				}
+
+				private boolean validacionLetras(String nom) {
+					
+					return nom.matches("[A-Z]*[a-z]*");
+					
 				}
 
 			});
@@ -241,7 +282,8 @@ public class TrabajadoresUI extends JPanel{
 			repaint();
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "NO se puede crear trabajador si NO hay departamentos");
+			sonidoerror();
+			JOptionPane.showMessageDialog(null, "No se puede crear trabajador si no hay departamentos");
 			home();
 		}
 	}
@@ -269,18 +311,22 @@ public class TrabajadoresUI extends JPanel{
 		JButton delete = new JButton("ELIMINAR");
 		delete.setBounds(70, 395, 100, 40);
 		botonOpTrab(delete);
+		hoverAction(delete);
 		
 		JButton modificar = new JButton("MODIFICAR");
 		modificar.setBounds(190, 395, 100, 40);
 		botonOpTrab(modificar);
+		hoverAction(modificar);
 		
 		JButton consultar = new JButton("DATOS");
 		consultar.setBounds(310, 395, 100, 40);
 		botonOpTrab(consultar);
+		hoverAction(consultar);
 		
 		JButton liquidacion = new JButton("LIQUIDACIÓN");
 		liquidacion.setBounds(430, 395, 110, 40);
 		botonOpTrab(liquidacion);
+		hoverAction(liquidacion);
 		
 		Trabajador.llenarMatriz();
 		
@@ -300,6 +346,7 @@ public class TrabajadoresUI extends JPanel{
 				}
 
 				if(!entro) {
+					sonidoerror();
 					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
 				}
 			}
@@ -320,6 +367,7 @@ public class TrabajadoresUI extends JPanel{
 				}
 
 				if(!entro) {
+					sonidoerror();
 					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
 				}
 			}
@@ -338,13 +386,14 @@ public class TrabajadoresUI extends JPanel{
 							Trabajador.eliminarTrabajador(rut);	
 							entro = true;
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
+						
 							e1.printStackTrace();
 						}
 					}
 				}
 
 				if(!entro) {
+					sonidoerror();
 					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
 				}
 				
@@ -368,6 +417,7 @@ public class TrabajadoresUI extends JPanel{
 				}
 
 				if(!entro) {
+					sonidoerror();
 					JOptionPane.showMessageDialog(null, "RUT INVÁLIDO");
 				}
 			}
@@ -446,8 +496,6 @@ public class TrabajadoresUI extends JPanel{
 		  contr.setBounds(100, 180, 500, 25);
 		  contr.setFont(new Font("",Font.BOLD,20));
 		
-		 
-		  
 		  depto = new JLabel("Departamento:                     "+t.getString("departamento"));
 		  depto.setBounds(110, 220, 500, 25);
 		  depto.setFont(new Font("",Font.BOLD,20));
@@ -466,6 +514,7 @@ public class TrabajadoresUI extends JPanel{
 		  volver.setBounds(200, 360, 200, 50);
 		  
 		  botonOpTrab(volver);
+		  hoverAction(volver);
 		
 		volver.addActionListener(new ActionListener() {
 
@@ -584,10 +633,13 @@ public class TrabajadoresUI extends JPanel{
 		
 		botonOpTrab(modificar);
 		
+		hoverAction(modificar);
+		
 		modificar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				try {
 					Trabajador.eliminarTrabajador(t.getString("rut"));
 				} catch (JSONException | IOException e1) {
@@ -607,11 +659,16 @@ public class TrabajadoresUI extends JPanel{
 				String depa = (String) departamento.getSelectedItem();
 				new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario, depa);
 				Departamento.addTrabajador(depa);
+				sonidoVerificador();
 				JOptionPane.showMessageDialog(null, "Usuario actualizado!");
 				operaciones();
 			}
 			
 		});
+		
+		//VALIDACION LETRAS
+		
+		
 
 		//VALIDACIÓN SALARIO
 		fieldSalario.addKeyListener(new KeyAdapter() {
@@ -629,8 +686,7 @@ public class TrabajadoresUI extends JPanel{
 
 		fieldRutVerif.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
-				String value = fieldRutVerif.getText();
-				int l = value.length();
+			
 				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == 'K' || ke.getKeyChar() == 'k' || ke.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
 					fieldRutVerif.setEditable(true);
 				} else {
@@ -693,6 +749,8 @@ public class TrabajadoresUI extends JPanel{
 		
 		botonOpTrab(volver);
 		
+		hoverAction(volver);
+		
 		volver.addActionListener(new ActionListener() {
 
 			@Override
@@ -703,6 +761,8 @@ public class TrabajadoresUI extends JPanel{
 			}
 				
 		});
+		
+		
 		
 		
 		
@@ -742,5 +802,55 @@ public class TrabajadoresUI extends JPanel{
 	   
    }
    
+   public void validadorNombre(JTextField nombre,KeyEvent ke) {
+	   
+	   
+   }
+   
+   public void hoverAction(JButton boton) {
+	
+	   boton.addMouseListener(new java.awt.event.MouseAdapter() {
+	        public void mouseEntered(java.awt.event.MouseEvent evt) {
+	            boton.setBackground(new Color(120, 120, 114));
+	        }
+	        public void mouseExited(java.awt.event.MouseEvent evt) {
+	            boton.setBackground(new Color(82, 82, 78));
+	        }
+	    });
+		
+   }
+   
+   public void sonidoerror()
+   {
+	
+	 sonido = getClass().getResource("erro.wav");
+	 try {
+       
+		 AudioInputStream sound2 = AudioSystem.getAudioInputStream(sonido);
+		 Clip clip2 = AudioSystem.getClip();
+	     clip2.open(sound2);
+	     clip2.start();
+	       
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+     
+   }
+   public void sonidoVerificador() {
+		 
+		 sonido2 = getClass().getResource("notif.wav");
+		 try {
+	       
+			 AudioInputStream sound2 = AudioSystem.getAudioInputStream(sonido2);
+			 Clip clip2 = AudioSystem.getClip();
+		     clip2.open(sound2);
+		     clip2.start();
+		       
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    }
+		 
+		 
+	 }
    
 }

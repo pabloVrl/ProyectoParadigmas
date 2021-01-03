@@ -1,9 +1,15 @@
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 public class Home {
@@ -16,8 +22,14 @@ public class Home {
 	private final Color fondo = new Color(82, 82, 78);
 	private JPanel panelActual = bienvenida;
 	 
+    
 	
 	public Home(){
+		
+		ImageIcon img1 = new ImageIcon("./res/img/home.png");
+		ImageIcon img2 = new ImageIcon("./res/img/departamentos.png");
+		ImageIcon img3 = new ImageIcon("./res/img/trabajadores.png");
+		
 		// Panel Principal
 		principal = new JPanel();
 		principal.setLayout(null);
@@ -30,13 +42,15 @@ public class Home {
 		nav.setLayout(null);
 		nav.setVisible(true);
 		
-		home = new JButton("Home");
-		home.setBounds(0, 50, 170, 50);
 		
-		trabajadores = new JButton("Trabajadores");
+		
+		home = new JButton("            Home             ",img1);
+		home.setBounds(0, 50, 170, 50);
+	 
+		trabajadores = new JButton("    Trabajadores      ",img3);
 		trabajadores.setBounds(0, 100, 170, 50);
 		
-		depa = new JButton("Departamentos");
+		depa = new JButton("   Departamentos    ",img2);
 		depa.setBounds(0, 150, 170, 50);
 		
 		JButton botones[] = {home, trabajadores, depa};
@@ -45,11 +59,15 @@ public class Home {
 			botones[i].setBorder(new LineBorder(new Color(102, 102, 98), 6));
 			botones[i].setFocusPainted(false);
 			botones[i].setForeground(Color.WHITE);
+			hoverAction(botones[i]);
 			nav.add(botones[i]);
 		}
 		
+		
+		
 		principal.add(nav);
 		principal.add(bienvenida);
+		
 		
 		//Accion de botones
 		
@@ -57,7 +75,7 @@ public class Home {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 				mostrarBienv();
 			}
 			
@@ -67,7 +85,7 @@ public class Home {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 				mostrarDepto();
 			}
 			
@@ -77,7 +95,7 @@ public class Home {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 				mostrarTrabajadores();
 			}
 			
@@ -120,5 +138,17 @@ public class Home {
 		this.panelActual = p;
 	}
 
+	 public void hoverAction(JButton boton) {
+			
+		   boton.addMouseListener(new java.awt.event.MouseAdapter() {
+		        public void mouseEntered(java.awt.event.MouseEvent evt) {
+		            boton.setBackground(new Color(120, 120, 114));
+		        }
+		        public void mouseExited(java.awt.event.MouseEvent evt) {
+		            boton.setBackground(new Color(82, 82, 78));
+		        }
+		    });
+			
+	   }
 	
 }

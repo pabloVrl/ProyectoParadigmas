@@ -134,7 +134,7 @@ public class Trabajador {
 					
 				if(horario.equals("Full-time")) {
 					
-					subMatrizLiquidacion(sueldo*180,4000,30000);
+					subMatrizLiquidacion(sueldo*180,4000*20,30000);
 					
 				}
 			
@@ -154,9 +154,9 @@ public class Trabajador {
 		matrizLiquidacion[0][0] = "Sueldo Base"; 
 		matrizLiquidacion[0][1] = "               "+sueldo;
 		matrizLiquidacion[1][0] = "Asignación Movilización";
-		matrizLiquidacion[1][1] = "               "+movilizacion;	
+		matrizLiquidacion[1][1] = "                "+movilizacion;	
 		matrizLiquidacion[2][0] = "Asignación Colación";
-		matrizLiquidacion[2][1] = "               "+colacion;
+		matrizLiquidacion[2][1] = "                "+colacion;
 		matrizLiquidacion[7][0] = "Total Haberes";
 		matrizLiquidacion[7][1] = "               "+(sueldo+colacion+movilizacion);
 		
@@ -237,5 +237,7 @@ public class Trabajador {
 		}
 			
 	}
+	
+	
 	
 }

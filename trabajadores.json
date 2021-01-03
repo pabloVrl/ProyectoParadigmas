@@ -1,14 +1,14 @@
 {"trabajadores": [{
-   "rut": "11111111-2",
-   "apellidoPaterno": "asas",
+   "rut": "11111111-3",
+   "apellidoPaterno": "sda",
    "fechaNacimiento": {
       "mes": "1",
       "dia": "1",
       "año": "2020"
    },
    "tipoContrato": "Part-time",
-   "departamento": "asdasd",
-   "salarioPorHora": 1000,
-   "nombre": "ignaci",
-   "apellidoMaterno": "sasa"
+   "departamento": "depa",
+   "salarioPorHora": 100,
+   "nombre": "asda",
+   "apellidoMaterno": "as"
 }]}
