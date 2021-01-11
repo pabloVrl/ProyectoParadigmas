@@ -15,6 +15,7 @@ public class Departamento {
 	
 	public static JSONArray departamentos = new JSONArray();
 	
+	//Constructor de la clase departamento
 	public Departamento(String nombreDepa){
 		
 		if(departamentos.isEmpty()) {
@@ -32,7 +33,7 @@ public class Departamento {
 		
 		actualizarJson();
 	}
-	
+	//Función elimina trabajador del String
 	public static void eliminarTrabajador(String name) {
 		JSONObject obj;
 		for(int i = 0; i < departamentos.length(); i++) {
@@ -45,7 +46,7 @@ public class Departamento {
 		}
 		actualizarJson();
 	}
-	
+	//Función que añade al trabajador al String
 	public static void addTrabajador(String name) {
 		JSONObject obj;
 		for(int i = 0; i < departamentos.length(); i++) {
@@ -58,7 +59,7 @@ public class Departamento {
 		}
 		actualizarJson();
 	}
-	
+	//Función que retorna todos los nombres de los trabajadores
 	public static ArrayList<String> getNombresDeptos() {
 		ArrayList<String> nombres = new ArrayList<>();
 		JSONObject depto;
@@ -69,7 +70,7 @@ public class Departamento {
 		
 		return nombres;
 	}
-	
+	//Función que elimina departamento del String
 	public static void eliminarDepa(String name) throws IOException {
 		JSONObject obj;
 		Trabajador.eliminarTrabPorDepa(name);
@@ -81,7 +82,7 @@ public class Departamento {
 		}
 		actualizarJson();
 	}
-	
+	//Función permite cargar datos del archivo JSON
 	public static void cargarDatos() throws IOException {
 		String content = new String(Files.readAllBytes(Paths.get("departamentos.json")));
 		JSONObject obj = new JSONObject(content);
@@ -92,7 +93,7 @@ public class Departamento {
 			departamentos.put(obj);
 		}
 	}
-	
+	//Metodo que crea el objecto con la etiqueta departamentos para el JSON
 	private static void actualizarJson() {
 		FileWriter file;
 		JSONObject obj = new JSONObject();
@@ -108,7 +109,7 @@ public class Departamento {
 		}
 			
 	}
-	
+	//Metodo que retorna toda la informacion de un departamento
 	private JSONObject toJson() {
 		JSONObject depto = new JSONObject();
 		depto.put("ID", ID);
@@ -116,7 +117,7 @@ public class Departamento {
 		depto.put("numeroTrabajadores", numeroTrabajadores);
 		return depto;
 	}
-	
+	//Función que retorna el numero total de trabajadores de un departamento
 	public static String getNroTotalTrabajadores() {
 		JSONObject obj;
 		int nroTotal = 0;
@@ -128,7 +129,7 @@ public class Departamento {
 		return String.valueOf(nroTotal);
 	}
 	
-	 
+	 //Función que retorna el numero total de trabajadores en la empresa
 	 public static String getNumeroTrabajadores(String nombre) {
 		 JSONObject obj;
 		 
@@ -143,20 +144,13 @@ public class Departamento {
 		return null;
 	}
 
-    public String getNombreDepa() {
-		return nombre;
-	}
 	
-	public void setNumeroTrabajadores(int numeroTrabajadores) {
-		this.numeroTrabajadores = numeroTrabajadores;
-	}
-	
-	public void setNombreDepa(String nombreDepa) {
-		this.nombre = nombreDepa;
-	}
 
 	  
 }
+
+
+
 
   
   

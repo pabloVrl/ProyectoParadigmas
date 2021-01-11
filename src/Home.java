@@ -23,7 +23,7 @@ public class Home {
 	private JPanel panelActual = bienvenida;
 	 
     
-	
+	//CONSTRUCTOR
 	public Home(){
 		
 		ImageIcon img1 = new ImageIcon("./res/img/home.png");
@@ -69,7 +69,7 @@ public class Home {
 		principal.add(bienvenida);
 		
 		
-		//Accion de botones
+		//ACCIÓN BOTONES
 		
 		home.addActionListener(new ActionListener() {
 
@@ -102,14 +102,14 @@ public class Home {
 		});
 		
 	}
-	
+	//METODO PARA MOSTRAR EL INICIO
 	private void mostrarBienv() {
 		this.removerPanelActual();
 		principal.add(bienvenida);
 		principal.repaint();
 		this.addPanelActual(bienvenida);
 	}
-	
+	//METODO PARA MOSTRAR EL MENU DE DEPARTAMENTO
 	private void mostrarDepto() {
 		this.removerPanelActual();
 		depto.home();
@@ -117,7 +117,7 @@ public class Home {
 		principal.repaint();
 		this.addPanelActual(depto);
 	}
-	
+	//METODO PARA MOSTRAR EL MENU TRABAJADORES
 	private void mostrarTrabajadores() {
 		this.removerPanelActual();
 		trab = new TrabajadoresUI();
@@ -125,19 +125,20 @@ public class Home {
 		principal.repaint();
 		this.addPanelActual(trab);
 	}
-	
+	//FUNCIÓN QUE TE PERMITE CARGAR EL PANEL
 	public JPanel getprincipalPanel(){
 		return principal;
 	}
-	
+	//METODO QUE REMOVE LOS ITEMS DENTRO DEL PANEL
 	private void removerPanelActual() {
 		principal.remove(panelActual);
 	}
-	
+	//METODO QUE AGREGA EL PANEL QUE SE VA A OCUPAR EN EL PANEL ACTUAL
 	private void addPanelActual(JPanel p) {
 		this.panelActual = p;
 	}
 
+	//EFECTO HOVER BOTONES
 	 public void hoverAction(JButton boton) {
 			
 		   boton.addMouseListener(new java.awt.event.MouseAdapter() {

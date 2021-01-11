@@ -14,7 +14,7 @@ public class TablaDatos {
 		sp.setBounds(x, y, h, w);
 		
 	}
-	
+	//FUNCIÓN QUE RETORNA EL SCROLLPANE CON LA TABLA
 	public JScrollPane getSP() {
 		return sp;
 	}

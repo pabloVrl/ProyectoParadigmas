@@ -8,6 +8,7 @@ public class Rut {
 		this.verificador = verificador;
 	}
 
+	//FUNCIÓNES
 	public String getString() {
 		return digitos + "-" + verificador;
 	}

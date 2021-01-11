@@ -12,7 +12,7 @@ public class FechaNacimiento {
 		this.mes = mes;
 		this.anio = anio;
 	}
-	
+	//FUNCIÓN QUE LLENA LOS DIAS, MESES Y AÑOS
 	public static void llenarArrays() {
 		for(int i = 1; i <= 31; i++) {
 			arrDia.add(String.valueOf(i));
@@ -27,18 +27,21 @@ public class FechaNacimiento {
 		};
 	}
 
+	//FUNCIÓN QUE RETORNA EL STRING DIA
 	public String getDia() {
 		return dia;
 	}
-
+ 
+	//FUNCIÓN QUE ACTUALIZA EL DIA EN LA CLASE
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
-
+    //FUNCIÓN QUE RETORNA EL STRING MES
 	public String getMes() {
 		return mes;
 	}
 
+	//FUNCIÓN QUE ACTUALIZA EL MES EN LA CLASE
 	public void setMes(String mes) {
 		this.mes = mes;
 	}

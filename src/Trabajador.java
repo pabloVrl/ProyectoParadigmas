@@ -21,6 +21,7 @@ public class Trabajador {
 	public static String[][] matriz = new String[trabajadores.length()][6];  
 	public static String[][] matrizLiquidacion = new String[11][4];
 
+	//CONSTRUCTOR
 	public Trabajador(Rut Rut, String nombre, String apellidoP, String apellidoM, FechaNacimiento fechaNac, String tipoContrato, float salario, String departamento) {
 		this.rut = Rut;
 		this.nombre = nombre;
@@ -35,7 +36,7 @@ public class Trabajador {
 		
 		actualizarJson();
 	}
-	
+	//FUNCIÓN MODIFICAR TRABAJADOR
 	public static void modificarTrab(JSONObject trabajador) {
 		for(int i = 0; i < trabajadores.length(); i++) {
 			JSONObject t = trabajadores.getJSONObject(i);
@@ -44,7 +45,7 @@ public class Trabajador {
 			}
 		}
 	}
-	
+	//FUNCIÓN RETORNA TODOS LOS RUT DEL JSON
 	public static JSONObject getObjRut(String rut) {
 		JSONObject t = new JSONObject();
 		for(int i = 0; i < trabajadores.length(); i++) {
@@ -56,7 +57,7 @@ public class Trabajador {
 		
 		return null;
 	}
-	
+	//FUNCIÓN ELIMINA TRABAJADOR POR DEPARTAMENTO
 	public static void eliminarTrabPorDepa(String nombre) throws IOException {
 		String content = new String(Files.readAllBytes(Paths.get("trabajadores.json")));
 		JSONObject obj = new JSONObject(content);
@@ -69,7 +70,7 @@ public class Trabajador {
 			}
 		}
 	}
-	
+	//FUNCIÓN ELIMINA TRABAJADOR DEL JSON
 	public static void eliminarTrabajador(String rut) throws IOException {
 		String content = new String(Files.readAllBytes(Paths.get("trabajadores.json")));
 		JSONObject obj = new JSONObject(content);
@@ -85,7 +86,7 @@ public class Trabajador {
 		actualizarJson();
 		llenarMatriz();
 	}
-	
+	//FUNCIÓN RETORNA TODOS LOS RUT EN UN STRING
 	public static String[] getRuts() {
 		String[] ruts = new String[trabajadores.length()];
 		JSONObject t = new JSONObject();
@@ -96,7 +97,7 @@ public class Trabajador {
 		
 		return ruts;
 	}
-	
+	//FUNCIÓN LLENA MATRIZ CON LOS DATOS DEL TRABAJADOR
 	public static void llenarMatriz() {
 		JSONObject obj = new JSONObject();
 		matriz = new String[trabajadores.length()][6];
@@ -111,7 +112,7 @@ public class Trabajador {
 		}
 	}
 	
-	
+	//FUNCIÓN ENCARGADA DE LLENAR LA MATRIZ DE LIQUIDACIÓN
 	public static void llenarMatrizLiquidacion(String rut) {
 		
 		matrizLiquidacion = new String [11][4];
@@ -175,6 +176,7 @@ public class Trabajador {
 		
 		
 	}
+	//FUNCIÓN 
 	public static ArrayList<String> getNombresTrabajadores() {
 		
 		ArrayList<String> nombres = new ArrayList<>();
@@ -189,7 +191,7 @@ public class Trabajador {
 		return nombres;
 		
 	}
-	
+	//METODO QUE PASA LOS DATOS DE UN TRABAJADOR A UN OBJETO 
 	private JSONObject toJson() {
 		JSONObject trabajador = new JSONObject();
 		JSONObject fecha = new JSONObject();
@@ -210,7 +212,7 @@ public class Trabajador {
 		
 		return trabajador;
 	}
-	
+	//FUNCIÓN CARGA LOS DATOS DEL ARCHIVO TRABAJADORES.JSON
 	public static void cargarDatos() throws IOException {
 		String content = new String(Files.readAllBytes(Paths.get("trabajadores.json")));
 		JSONObject obj = new JSONObject(content);
@@ -221,7 +223,7 @@ public class Trabajador {
 			trabajadores.put(obj);
 		}
 	}
-	
+	//METODO PARA ACTUALIZAR EL ARCHIVO JSON PARA GUARDAR CAMBIOS
 	private static void actualizarJson() {
 		FileWriter file;
 		JSONObject obj = new JSONObject();

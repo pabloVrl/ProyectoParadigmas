@@ -214,6 +214,7 @@ public class TrabajadoresUI extends JPanel{
 			botonOpTrab(agregar);
 			hoverAction(agregar);
 
+			//ACCIÓN BOTONES
 			agregar.addActionListener(new ActionListener() {
 
 				@Override
@@ -259,6 +260,7 @@ public class TrabajadoresUI extends JPanel{
 						
 				}
 
+				//VALIDACIÓN
 				private boolean validacionLetras(String nom) {
 					
 					return nom.matches("[A-Z]*[a-z]*");
@@ -331,7 +333,7 @@ public class TrabajadoresUI extends JPanel{
 		Trabajador.llenarMatriz();
 		
 		TablaDatos datos = new TablaDatos(35, 150, 550, 225);
-		
+		//ACCIÓN BOTON
 		liquidacion.addActionListener(new ActionListener() {
 
 			@Override
@@ -352,7 +354,7 @@ public class TrabajadoresUI extends JPanel{
 			}
 			
 		});
-		
+		//ACCIÓN BOTON
 		consultar.addActionListener(new ActionListener() {
 
 			@Override
@@ -373,7 +375,7 @@ public class TrabajadoresUI extends JPanel{
 			}
 			
 		});
-		
+		//ACCIÓN BOTON
 		delete.addActionListener(new ActionListener() {
 
 			@Override
@@ -402,7 +404,7 @@ public class TrabajadoresUI extends JPanel{
 			}
 			
 		});
-		
+		//ACCIÓN BOTON
 		modificar.addActionListener(new ActionListener() {
 
 			@Override
@@ -471,7 +473,7 @@ public class TrabajadoresUI extends JPanel{
 		validate();
 		
 	}
-	
+	//MOSTRAR DATOS DEL TRABAJADOR
 	private void mostrarDatos(String rut) {
 		removeAll();
 
@@ -515,7 +517,7 @@ public class TrabajadoresUI extends JPanel{
 		  
 		  botonOpTrab(volver);
 		  hoverAction(volver);
-		
+		//ACCIÓN BOTON
 		volver.addActionListener(new ActionListener() {
 
 			@Override
@@ -594,6 +596,7 @@ public class TrabajadoresUI extends JPanel{
 
 		JComboBox departamento = new JComboBox(Departamento.getNombresDeptos().toArray());
 		departamento.setBounds(240, 270, 250, 25);
+		
 		for(int i = 0; i < Departamento.departamentos.length(); i++) {
 			String actual = (String) departamento.getItemAt(i);
 			if(actual.equals(t.getString("departamento"))) {
@@ -634,7 +637,7 @@ public class TrabajadoresUI extends JPanel{
 		botonOpTrab(modificar);
 		
 		hoverAction(modificar);
-		
+		//ACCIÓN BOTONES
 		modificar.addActionListener(new ActionListener() {
 
 			@Override
@@ -666,7 +669,7 @@ public class TrabajadoresUI extends JPanel{
 			
 		});
 		
-		//VALIDACION LETRAS
+		
 		
 		
 
@@ -750,7 +753,7 @@ public class TrabajadoresUI extends JPanel{
 		botonOpTrab(volver);
 		
 		hoverAction(volver);
-		
+		//ACCIÓN BOTON
 		volver.addActionListener(new ActionListener() {
 
 			@Override
@@ -802,11 +805,8 @@ public class TrabajadoresUI extends JPanel{
 	   
    }
    
-   public void validadorNombre(JTextField nombre,KeyEvent ke) {
-	   
-	   
-   }
    
+   //EFECTO HOVER
    public void hoverAction(JButton boton) {
 	
 	   boton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -819,7 +819,7 @@ public class TrabajadoresUI extends JPanel{
 	    });
 		
    }
-   
+   //EFECTO SONIDO ERROR
    public void sonidoerror()
    {
 	
@@ -836,6 +836,7 @@ public class TrabajadoresUI extends JPanel{
     }
      
    }
+   //EFECTO SONIDO NOTIFICACIÓN
    public void sonidoVerificador() {
 		 
 		 sonido2 = getClass().getResource("notif.wav");

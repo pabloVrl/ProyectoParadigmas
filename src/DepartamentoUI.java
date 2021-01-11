@@ -32,6 +32,7 @@ public class DepartamentoUI extends JPanel{
 		
 		
 	}
+	
 	//MENU PRINCIPAL DE DEPARTAMENTO 
 	public void home() {
 		this.removeAll();
@@ -118,7 +119,7 @@ public class DepartamentoUI extends JPanel{
 		//-------------------------------------------------------------------//
 	}
 	
-	//FUNCIÓN INGRESAR DEPARTAMENTO AL SISTEMA
+	//PANEL INGRESAR DEPARTAMENTO
 	private void ingresar() {
 		removeAll();
 		JLabel textTitulo = new JLabel("INGRESAR DEPARTAMENTO");
@@ -138,6 +139,7 @@ public class DepartamentoUI extends JPanel{
 		botonOpDepa(agregar,13);
 		hoverAction(agregar);
 		
+		//ACCIÓN BOTONES
 		agregar.addActionListener(new ActionListener() {
 
 			@Override
@@ -153,7 +155,7 @@ public class DepartamentoUI extends JPanel{
 				home();
 				}
 			}
-			
+			//VALIDACIÓN NOMBRE DEPARTAMENTO
 			private boolean validacion(String nom) {
 				
 				return nom.matches("[A-Z]*[a-z]*");
@@ -167,7 +169,7 @@ public class DepartamentoUI extends JPanel{
 		add(fieldNombre);
 		repaint();
 	}
-	//FUNCIÓN QUE TE PERMITE ELIMINAR DEPARTAMENTO DEL SISTEMA
+	//PANEL ELIMINAR DEPARTAMENTO
 	private void eliminar() {
 		removeAll();
 		JLabel textTitulo = new JLabel("ELIMINAR DEPARTAMENTO");
@@ -187,12 +189,12 @@ public class DepartamentoUI extends JPanel{
 		botonOpDepa(delete,13);
 		hoverAction(delete);
 		
+		//ACCIÓN DE LOS BOTONES
 		delete.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				    int aux=0;
-				
 					remove(depa);
 					try {
 				    Departamento.eliminarDepa((String) depa.getSelectedItem());
@@ -235,7 +237,7 @@ public class DepartamentoUI extends JPanel{
 		repaint();
 		validate();
 	}
-	//FUNCIÓN QUE TE MUESTRA EL TOTAL DE TRABAJADORES EN LA EMPRESA
+	//PANEL CANTIDAD TOTAL DE TRABAJADORES
 	private void cantTrabajadores() {
 		removeAll();
 		JLabel textTitulo = new JLabel("CANTIDAD TOTAL DE TRABAJADORES");
@@ -256,7 +258,7 @@ public class DepartamentoUI extends JPanel{
 		add(NroTotalTrabajadores);
 		repaint();
 	}
-	//FUNCIÓN QUE TE MUESTRA LA CANTIDAD DE TRABAJADORES DEPENDIENDO DEL DEPARTAMENTO
+	//PANEL NÚMERO DE TRABAJADORES
 	private void nrotrabajadores_depa() {
 		removeAll();
 		JLabel textTitulo = new JLabel("NÚMERO DE TRABAJADORES");
@@ -284,7 +286,7 @@ public class DepartamentoUI extends JPanel{
 		nroTrab.setBounds(460, 250, 200, 25);
 		nroTrab.setFont(new Font("",Font.BOLD,20));
 		
-		
+		//ACCIÓN BOTON
 		nombreDepa.addActionListener(new ActionListener() {
 
 			@Override
@@ -314,7 +316,7 @@ public class DepartamentoUI extends JPanel{
 		boton.setForeground(Color.white);
 		
 	}
-	
+	//EFECTO HOVER BOTON
 	 public void hoverAction(JButton boton) {
 			
 		   boton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -327,7 +329,7 @@ public class DepartamentoUI extends JPanel{
 		    });
 			
 	   }
-	
+	 //EFECTO SONIDO ERROR
 	 public void sonidoerror()
 	   {
 		
@@ -344,6 +346,7 @@ public class DepartamentoUI extends JPanel{
 	    }
 	     
 	   }
+	 //EFECTO SONIDO NOTIFICACIÓN
 	 public void sonidoVerificador() {
 		 
 		 sonido2 = getClass().getResource("notif.wav");
