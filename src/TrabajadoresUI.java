@@ -220,6 +220,7 @@ public class TrabajadoresUI extends JPanel{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					System.out.println("entre");
 					String nom = fieldNombre.getText().trim();
 
 					if (!validacionLetras(nom) || nom.equals("")) {
@@ -240,30 +241,35 @@ public class TrabajadoresUI extends JPanel{
 							} else {
 								Rut rut = new Rut(fieldRut.getText(), fieldRutVerif.getText());
 								String[] ruts = Trabajador.getRuts();
+								boolean crear = true;
 								for (int i = 0; i < Trabajador.trabajadores.length(); i++) {
 									if (rut.getString().equals(ruts[i])) {
 										JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese RUT");
-									} else {
-										String nombre = fieldNombre.getText();
-										String apellidoP = fieldApellidoP.getText();
-										String apellidoM = fieldApellidoM.getText();
-										String diaNac = (String) dia.getSelectedItem();
-										String mesNac = (String) mes.getSelectedItem();
-										String anioNac = (String) anio.getSelectedItem();
-										FechaNacimiento fechaNac = new FechaNacimiento(diaNac, mesNac, anioNac);
-										String contrato = (String) tipoContrato.getSelectedItem();
-										int salario = Integer.parseInt(fieldSalario.getText());
-										String depa = (String) departamento.getSelectedItem();
-										new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario,
-												depa);
-										Departamento.addTrabajador(depa);
-										sonidoVerificador();
-										JOptionPane.showMessageDialog(null, "Usuario creado!");
-										ingresar();
-									}
+										crear = false;
+										break;
+									}	
 								}
-
+								if(crear) {
+									System.out.println("entre");
+									String nombre = fieldNombre.getText();
+									String apellidoP = fieldApellidoP.getText();
+									String apellidoM = fieldApellidoM.getText();
+									String diaNac = (String) dia.getSelectedItem();
+									String mesNac = (String) mes.getSelectedItem();
+									String anioNac = (String) anio.getSelectedItem();
+									FechaNacimiento fechaNac = new FechaNacimiento(diaNac, mesNac, anioNac);
+									String contrato = (String) tipoContrato.getSelectedItem();
+									int salario = Integer.parseInt(fieldSalario.getText());
+									String depa = (String) departamento.getSelectedItem();
+									new Trabajador(rut, nombre, apellidoP, apellidoM, fechaNac, contrato, salario,
+											depa);
+									Departamento.addTrabajador(depa);
+									sonidoVerificador();
+									JOptionPane.showMessageDialog(null, "Usuario creado!");
+									ingresar();
+								}
 							}
+
 						}
 					}
 
