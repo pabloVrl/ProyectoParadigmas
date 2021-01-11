@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -502,10 +503,31 @@ public class TrabajadoresUI extends JPanel{
 		  depto.setBounds(110, 220, 500, 25);
 		  depto.setFont(new Font("",Font.BOLD,20));
 		  
-		  		
-		  naci = new JLabel("Fecha Nacimiento:                 "+nac.getString("dia")+"/"+nac.getString("mes")+"/"+nac.getString("año") );
-		  naci.setBounds(100, 260, 500, 25);
-		  naci.setFont(new Font("",Font.BOLD,20));
+		  Calendar calendar = Calendar.getInstance();
+		  int edad;
+
+          int diaActual = calendar.get(Calendar.DATE);
+          int mesActual = calendar.get(Calendar.MONTH) + 1;
+          int anioActual = calendar.get(Calendar.YEAR);
+
+          int diaNac = Integer.parseInt(nac.getString("dia"));
+          int mesNac = Integer.parseInt(nac.getString("mes"));
+          int anioNac = Integer.parseInt(nac.getString("año"));
+
+          if(mesNac > mesActual) {
+              edad = anioActual - anioNac - 1;
+          }
+          else if(mesNac == mesActual && diaActual < diaNac) {
+              edad = anioActual - anioNac - 1;
+          }
+          else {
+              edad = anioActual - anioNac;
+          }
+
+
+          naci = new JLabel("            Edad:                         " + String.valueOf(edad));
+          naci.setBounds(100, 260, 500, 25);
+          naci.setFont(new Font("",Font.BOLD,20));
 		  
 		  sal = new JLabel("Salario por hora:                  "+ String.valueOf(t.getInt("salarioPorHora")));
 		  sal.setBounds(110, 300, 500, 25);

@@ -1,1 +1,14 @@
-{"trabajadores": []}
+{"trabajadores": [{
+   "rut": "123-1",
+   "apellidoPaterno": "rodriguez",
+   "fechaNacimiento": {
+      "mes": "2",
+      "dia": "30",
+      "año": "1999"
+   },
+   "tipoContrato": "Full-time",
+   "departamento": "elvis",
+   "salarioPorHora": 1,
+   "nombre": "Elvis",
+   "apellidoMaterno": "toes"
+}]}
